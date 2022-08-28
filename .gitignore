@@ -1,0 +1,6 @@
+# Node.js
+node_modules/
+
+# clasp
+.clasp.json
+.clasprc.json

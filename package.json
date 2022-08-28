@@ -1,0 +1,33 @@
+{
+  "name": "u-portrait-gas",
+  "version": "1.0.0",
+  "description": "大学ポートレートWeb-APIをGoogle Apps Scriptで使うためのライブラリ",
+  "main": "src/portrait.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ttsukagoshi/u-portrait-gas.git"
+  },
+  "keywords": [
+    "google-apps-script",
+    "university-portrait"
+  ],
+  "author": "ttsukagoshi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ttsukagoshi/u-portrait-gas/issues"
+  },
+  "homepage": "https://github.com/ttsukagoshi/u-portrait-gas#readme",
+  "devDependencies": {
+    "@types/google-apps-script": "^1.0.53",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  }
+}
