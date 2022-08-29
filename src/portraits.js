@@ -23,32 +23,30 @@ SOFTWARE.
 */
 
 const STORAGE_PREFIX = 'portraits.';
+const API_VERSION = 'v1';
 
 /**
  * 大学ポートレートWeb-APIとの接続を定義。
- * @param {String} accessName この接続の名称。
+ * @param {String} appName このアプリケーションの名称。
  * @returns {PortraitsService_}
  */
-function setup(accessName) {
-  return new PortraitsService_(accessName);
+function init(appName) {
+  return new PortraitsService_(appName);
 }
 
-/**
- * 大学ポートレートWeb-APIとの一意の接続。
- * ポートレートAPIのアクセスキーごとに定義される
- */
 class PortraitsService_ {
   /**
-   * @param {String} accessName
+   * 大学ポートレートWeb-APIとの一意の接続。
+   * ポートレートAPIのアクセスキーごとに定義する。
+   * @param {String} appName
    */
-  constructor(accessName) {
-    if (!accessName) {
-      throw new Error(
-        'accessNameは必須です。setup(accessName)にて必ず指定してください。'
-      );
+  constructor(appName) {
+    if (!appName) {
+      throw new Error('appNameは必須です。必ず指定してください。');
     }
-    this.accessName_ = accessName;
+    this.appName_ = appName;
   }
+
   /**
    * 大学ポートレートWeb-APIアクセスキーを設定
    * @param {Sring} accessKey 大学ポートレートWeb-APIポータルサイトでユーザ登録により取得したアクセスキー
@@ -57,8 +55,10 @@ class PortraitsService_ {
    */
   setAccessKey(accessKey) {
     this.accessKey_ = accessKey;
+    this.getStorage().setValue(null, accessKey);
     return this;
   }
+
   /**
    * アクセスキーを保管するpropertyを設定。
    * 通常はuser propertyであると想定されるが、組織や部署で共有するツールの場合、
@@ -71,6 +71,7 @@ class PortraitsService_ {
     this.propertyStore_ = propertyStore;
     return this;
   }
+
   /**
    * アクセスキー参照の際に使用するキャッシュの種類を指定（任意）。
    * キャッシュを使用することで、Property参照の回数を減らせるため、スクリプト高速化につながる
@@ -85,25 +86,19 @@ class PortraitsService_ {
     this.cache_ = cache;
     return this;
   }
+
   /**
    * 一貫したアクセスキーを保持するための、Storageとの接続レイヤー
    * @returns {Storage_} このPortraitsService_でのstorage
    */
   getStorage() {
     if (!this.storage_) {
-      const prefix = STORAGE_PREFIX + this.accessName_;
+      const prefix = STORAGE_PREFIX + this.appName_;
       this.storage_ = new Storage_(prefix, this.propertyStore_, this.cache_);
     }
     return this.storage_;
   }
-  /**
-   * アクセスキーをこのPortraitsService_で指定したproperty storeとcacheに保存する。
-   * @param {String} accessKey 保存するアクセスキー
-   * @private
-   */
-  saveAccessKey_(accessKey) {
-    this.getStorage().setValue(null, accessKey);
-  }
+
   /**
    * このPortraitsService_で指定したproperty storeまたはcacheからアクセスキーを呼び出す。
    * @returns {String} アクセスキー。アクセスキーが存在しない場合はnull
@@ -111,12 +106,36 @@ class PortraitsService_ {
   getAccessKey() {
     return this.getStorage().getValue(null); // アクセスキー保存のために割り当てているnullキーで呼び出し
   }
+
   /**
    * このPortraitsService_を初期化。登録したアクセスキーを削除する。
    * 再度APIと接続するためには再定義が必要となる。
    */
   reset() {
     this.getStorage().reset();
+  }
+
+  /**
+   *
+   * @returns {boolean}
+   */
+  hasAccess() {
+    return this.getAccessKey() ? true : false;
+  }
+
+  /**
+   * 学生教員等状況票API情報取得
+   * @param {Number} year 対象年度の西暦4桁
+   * @param {String} univId 4桁の大学ID
+   * @returns {Object}
+   * @see https://api-portal.portraits.niad.ac.jp/api-info.html
+   */
+  getStudentFacultyStatus(year, univId) {
+    let url = `https://edit.portraits.niad.ac.jp/api/${API_VERSION}/SchoolBasicSurvey/getStudentFacultyStatus`;
+    url += `?accesskey=${this.getAccessKey()}&year=${year}&orgid=${univId}`;
+    return JSON.parse(
+      UrlFetchApp.fetch(url, { method: 'get' }).getContentText()
+    );
   }
 }
 
@@ -129,9 +148,144 @@ class Storage_ {
     this.properties_ = optProperties;
     this.cache_ = optCache;
     this.memory_ = {};
+    this.CACHE_EXPIRATION_TIME_SECONDS_ = 21600; // キャッシュのTTL（秒）。21600 sec = 6 hr
+    this.CACHE_NULL_VALUE_ = '__NULL__'; // キャッシュに値が存在しないことを示す特別な値
+  }
+
+  /**
+   * 保存された値を呼び出す
+   * @param {String} key キー
+   * @param {Boolean?} optSkipMemoryCheck 値を呼び出す時にローカルのキャッシュをバイパスするか否かのオプション。デフォルトではfalse。
+   * @return {*} 保存された値。保存された値が存在しなければnullを返す
+   */
+  getValue(key, optSkipMemoryCheck) {
+    const prefixedKey = this.getPrefixedKey_(key);
+    let jsonValue, value;
+    if (!optSkipMemoryCheck) {
+      // メモリ内のキャッシュを確認
+      if ((value = this.memory_[prefixedKey])) {
+        if (value === this.CACHE_NULL_VALUE_) {
+          return null;
+        }
+        return value;
+      }
+    }
+    // CacheService内のキャッシュを確認
+    if (this.cache_ && (jsonValue = this.cache_.get(prefixedKey))) {
+      value = JSON.parse(jsonValue);
+      this.memory_[prefixedKey] = value;
+      if (value === this.CACHE_NULL_VALUE_) {
+        return null;
+      }
+      return value;
+    }
+    // PropertiesService内のプロパティを確認
+    if (
+      this.properties_ &&
+      (jsonValue = this.properties_.getProperty(prefixedKey))
+    ) {
+      if (this.cache_) {
+        this.cache_.put(
+          prefixedKey,
+          jsonValue,
+          this.CACHE_EXPIRATION_TIME_SECONDS_
+        );
+      }
+      value = JSON.parse(jsonValue);
+      this.memory_[prefixedKey] = value;
+      return value;
+    }
+
+    // Not found. Store a special null value in the memory and cache to reduce
+    // hits on the PropertiesService.
+    this.memory_[prefixedKey] = this.CACHE_NULL_VALUE_;
+    if (this.cache_) {
+      this.cache_.put(
+        prefixedKey,
+        JSON.stringify(this.CACHE_NULL_VALUE_),
+        this.CACHE_EXPIRATION_TIME_SECONDS_
+      );
+    }
+    return null;
+  }
+
+  /**
+   * 値を保存する
+   * @param {String} key 保存する値のキー
+   * @param {*} value 保存する値
+   */
+  setValue(key, value) {
+    const prefixedKey = this.getPrefixedKey_(key);
+    const jsonValue = JSON.stringify(value);
+    if (this.properties_) {
+      this.properties_.setProperty(prefixedKey, jsonValue);
+    }
+    if (this.cache_) {
+      this.cache_.put(
+        prefixedKey,
+        jsonValue,
+        this.CACHE_EXPIRATION_TIME_SECONDS_
+      );
+    }
+    this.memory_[prefixedKey] = value;
+  }
+
+  /**
+   * 保存されている値を、キーを指定して削除する。
+   * @param {String} key 保存する値のキー
+   */
+  removeValue(key) {
+    const prefixedKey = this.getPrefixedKey_(key);
+    this.removeValueWithPrefixedKey_(prefixedKey);
+  }
+
+  /**
+   * 保存されている全ての値を削除して初期化する。
+   */
+  reset() {
+    const prefix = this.getPrefixedKey_();
+    let prefixedKeys = Object.keys(this.memory_);
+    if (this.properties_) {
+      const props = this.properties_.getProperties();
+      prefixedKeys = Object.keys(props).filter(
+        (prefixedKey) =>
+          prefixedKey === prefix || prefixedKey.indexOf(prefix + '.') === 0
+      );
+    }
+    prefixedKeys.forEach((prefixedKey) =>
+      this.removeValueWithPrefixedKey_(prefixedKey)
+    );
+  }
+
+  /**
+   * 保存されている値を、Prefix付きキーを指定して削除する。
+   * @param {string} prefixedKey Prefix付きキー
+   */
+  removeValueWithPrefixedKey_(prefixedKey) {
+    if (this.properties_) {
+      this.properties_.deleteProperty(prefixedKey);
+    }
+    if (this.cache_) {
+      this.cache_.remove(prefixedKey);
+    }
+    delete this.memory_[prefixedKey];
+  }
+
+  /**
+   * 指定したキーに対してPrefix付きキーを返す
+   * @param {string?} key キー
+   * @return {string} Prefix付きキー
+   * @private
+   */
+  getPrefixedKey_(key) {
+    if (key) {
+      return this.prefix_ + '.' + key;
+    } else {
+      return this.prefix_;
+    }
   }
 }
 
 if (typeof module === 'object') {
-  module.exports = { setup };
+  module.exports = { init };
 }
