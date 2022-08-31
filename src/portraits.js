@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 const STORAGE_PREFIX = 'portraits.';
+const API_BASE_URL = 'https://edit.portraits.niad.ac.jp/api/';
 const API_VERSION = 'v1';
 
 /**
@@ -32,6 +33,16 @@ const API_VERSION = 'v1';
  */
 function init(appName) {
   return new PortraitsService_(appName);
+}
+
+/**
+ * 大学ポートレートWeb-APIで大学基本情報等を呼び出す際に必要となる
+ * 大学IDなどの組織IDを参照するためのクラス
+ * @returns {PortraitsIdsService_}
+ */
+function getIds() {
+  const sp = PropertiesService.getScriptProperties().getProperties();
+  return new PortraitsIdsService_(sp.webAppUrl, sp.webAppKey);
 }
 
 class PortraitsService_ {
@@ -77,7 +88,7 @@ class PortraitsService_ {
    * キャッシュを使用することで、Property参照の回数を減らせるため、スクリプト高速化につながる
    * 可能性あり。通常はuser cacheであると想定されるが、組織や部署で共有するツールの場合、
    * documentやscript cacheとしたほうが適切である場合も。
-   * setPropertyStoreで指定したpropertyのスコープと揃える。
+   * setPropertyStoreで指定したpropertyのスコープと揃えることを想定。
    * @param {CacheService.Cache} cache アクセスキーを参照するためのキャッシュの種類
    * @returns {!PortraitsService_} This PortraitsService_, for chaining.
    * @see https://developers.google.com/apps-script/reference/cache/
@@ -116,10 +127,10 @@ class PortraitsService_ {
   }
 
   /**
-   *
-   * @returns {boolean}
+   * アクセスキーが登録済みであるか否かを判定
+   * @returns {boolean} アクセスキーが登録済みの場合、`true`を返す
    */
-  hasAccess() {
+  hasAccessKey() {
     return this.getAccessKey() ? true : false;
   }
 
@@ -131,8 +142,11 @@ class PortraitsService_ {
    * @see https://api-portal.portraits.niad.ac.jp/api-info.html
    */
   getStudentFacultyStatus(year, univId) {
-    let url = `https://edit.portraits.niad.ac.jp/api/${API_VERSION}/SchoolBasicSurvey/getStudentFacultyStatus`;
-    url += `?accesskey=${this.getAccessKey()}&year=${year}&orgid=${univId}`;
+    const params = `accesskey=${this.getAccessKey()}&year=${year}&orgid=${univId}`;
+    const url =
+      API_BASE_URL +
+      API_VERSION +
+      `/SchoolBasicSurvey/getStudentFacultyStatus?${params}`;
     return JSON.parse(
       UrlFetchApp.fetch(url, { method: 'get' }).getContentText()
     );
@@ -286,6 +300,81 @@ class Storage_ {
   }
 }
 
+class PortraitsIdsService_ {
+  /**
+   * @param {String} webAppUrl スクリプトプロパティに保存した、web appのURL
+   * @param {String} webAppKey スクリプトプロパティに保存した、web appで正常に処理が行われるようにするためのkey
+   */
+  constructor(webAppUrl, webAppKey) {
+    const response = JSON.parse(
+      UrlFetchApp.fetch(`${webAppUrl}?key=${webAppKey}`, {
+        method: 'get',
+      }).getContentText()
+    );
+    this.univIds = response.univIds;
+    this.intlIdSuffixes = response.intlIdSuffixes;
+    this.organizationIds = response.organizationIds;
+  }
+  /**
+   * 全てのID一覧を取得
+   * @returns {Object}
+   */
+  getAll() {
+    return {
+      univIds: this.univIds,
+      intlIdSuffixes: this.intlIdSuffixes,
+      organizationIds: this.organizationIds,
+    };
+  }
+  /**
+   * 大学ID一覧を取得
+   * @returns {Array}
+   */
+  getUnivIds() {
+    return this.univIds;
+  }
+  /**
+   * 指定した大学のIDを取得
+   * @param {Array} targetUnivNames 大学名の配列
+   * @returns {Array} 指定した大学について、大学名とIDがセットになったオブジェクトの配列
+   */
+  getUnivId(targetUnivNames) {
+    // 入力値の検証
+    if (!Array.isArray(targetUnivNames)) {
+      throw new TypeError(
+        `[ERROR] 引数として渡された ${targetUnivNames} は配列ではありません。`
+      );
+    } else if (targetUnivNames.length < 1) {
+      throw new RangeError('[ERROR] 必ず1つ以上の大学名を指定してください。');
+    }
+    const univNameList = this.univIds.map((univ) => univ.UNIV_NAME);
+    targetUnivNames.forEach((targetUnivName) => {
+      if (!univNameList.includes(targetUnivName)) {
+        throw new RangeError(
+          `[ERROR] ${targetUnivName}の情報は登録されていません。`
+        );
+      }
+    });
+    return this.univIds.filter((univ) =>
+      targetUnivNames.includes(univ.UNIV_NAME)
+    );
+  }
+  /**
+   * 外国人用組織ID一覧を取得
+   * @returns {array}
+   */
+  getIntlIdSuffixes() {
+    return this.intlIdSuffixes;
+  }
+  /**
+   * 全ての年の学部・研究科等組織ID一覧を取得
+   * @returns {Object}
+   */
+  getAllOrganizationIds() {
+    return this.organizationIds;
+  }
+}
+
 if (typeof module === 'object') {
-  module.exports = { init };
+  module.exports = { init, getIds };
 }
