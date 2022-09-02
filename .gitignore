@@ -3,3 +3,6 @@ node_modules/
 
 # clasp
 .clasp.json
+
+# system
+.DS_Store
