@@ -151,6 +151,132 @@ class PortraitsService_ {
       UrlFetchApp.fetch(url, { method: 'get' }).getContentText()
     );
   }
+
+  /**
+   * 学部学生内訳票API情報取得
+   * @param {Number} year 対象年度の西暦4桁
+   * @param {String} orgId 学部・研究科等組織ID
+   * @returns {Object}
+   * @see https://api-portal.portraits.niad.ac.jp/api-info.html
+   */
+  getCollegeUndergraduateStudentsDetail(year, orgId) {
+    const params = `accesskey=${this.getAccessKey()}&year=${year}&orgid=${orgId}`;
+    const url =
+      API_BASE_URL +
+      API_VERSION +
+      `/SchoolBasicSurvey/getCollegeUndergraduateStudentsDetail?${params}`;
+    return JSON.parse(
+      UrlFetchApp.fetch(url, { method: 'get' }).getContentText()
+    );
+  }
+
+  /**
+   * 大学院学生内訳票API情報取得
+   * @param {Number} year 対象年度の西暦4桁
+   * @param {String} orgId 学部・研究科等組織ID
+   * @returns {Object}
+   * @see https://api-portal.portraits.niad.ac.jp/api-info.html
+   */
+  getGraduateStudentsDetail(year, orgId) {
+    const params = `accesskey=${this.getAccessKey()}&year=${year}&orgid=${orgId}`;
+    const url =
+      API_BASE_URL +
+      API_VERSION +
+      `/SchoolBasicSurvey/getGraduateStudentsDetail?${params}`;
+    return JSON.parse(
+      UrlFetchApp.fetch(url, { method: 'get' }).getContentText()
+    );
+  }
+
+  /**
+   * 本科学生内訳票API情報取得
+   * @param {Number} year 対象年度の西暦4桁
+   * @param {String} univId 4桁の大学ID
+   * @returns {Object}
+   * @see https://api-portal.portraits.niad.ac.jp/api-info.html
+   */
+  getJuniorCollegeUndergraduateStudentsDetail(year, univId) {
+    const params = `accesskey=${this.getAccessKey()}&year=${year}&orgid=${univId}`;
+    const url =
+      API_BASE_URL +
+      API_VERSION +
+      `/SchoolBasicSurvey/getJuniorCollegeUndergraduateStudentsDetail?${params}`;
+    return JSON.parse(
+      UrlFetchApp.fetch(url, { method: 'get' }).getContentText()
+    );
+  }
+
+  /**
+   * 外国人学生調査票API情報取得
+   * @param {Number} year 対象年度の西暦4桁
+   * @param {String} foreignId 外国人学生用組織ID
+   * @returns {Object}
+   * @see https://api-portal.portraits.niad.ac.jp/api-info.html
+   */
+  getForeignStudent(year, foreignId) {
+    const params = `accesskey=${this.getAccessKey()}&year=${year}&orgid=${foreignId}`;
+    const url =
+      API_BASE_URL +
+      API_VERSION +
+      `/SchoolBasicSurvey/getForeignStudent?${params}`;
+    return JSON.parse(
+      UrlFetchApp.fetch(url, { method: 'get' }).getContentText()
+    );
+  }
+
+  /**
+   * 卒業後の状況調査票(2-1)API情報取得
+   * @param {Number} year 対象年度の西暦4桁
+   * @param {String} orgId 学部・研究科等組織ID
+   * @returns {Object}
+   * @see https://api-portal.portraits.niad.ac.jp/api-info.html
+   */
+  getStatusAfterGraduationGraduates(year, orgId) {
+    const params = `accesskey=${this.getAccessKey()}&year=${year}&orgid=${orgId}`;
+    const url =
+      API_BASE_URL +
+      API_VERSION +
+      `/SchoolBasicSurvey/getStatusAfterGraduationGraduates?${params}`;
+    return JSON.parse(
+      UrlFetchApp.fetch(url, { method: 'get' }).getContentText()
+    );
+  }
+
+  /**
+   * 卒業後の状況調査票(2-2)API情報取得
+   * @param {Number} year 対象年度の西暦4桁
+   * @param {String} orgId 学部・研究科等組織ID
+   * @returns {Object}
+   * @see https://api-portal.portraits.niad.ac.jp/api-info.html
+   */
+  getStatusAfterGraduationJobs(year, orgId) {
+    const params = `accesskey=${this.getAccessKey()}&year=${year}&orgid=${orgId}`;
+    const url =
+      API_BASE_URL +
+      API_VERSION +
+      `/SchoolBasicSurvey/getStatusAfterGraduationJobs?${params}`;
+    return JSON.parse(
+      UrlFetchApp.fetch(url, { method: 'get' }).getContentText()
+    );
+  }
+
+  /**
+   * 学校施設調査票(2-2)API情報取得
+   * @param {Number} year 対象年度の西暦4桁
+   * @param {String} univId 4桁の大学ID
+   * @returns {Object}
+   * @see https://api-portal.portraits.niad.ac.jp/api-info.html
+   */
+  getSchoolFacilities(year, univId) {
+    const params = `accesskey=${this.getAccessKey()}&year=${year}&orgid=${univId}`;
+    const url =
+      API_BASE_URL +
+      API_VERSION +
+      `/SchoolBasicSurvey/getSchoolFacilities?${params}`;
+    return JSON.parse(
+      UrlFetchApp.fetch(url, { method: 'get' }).getContentText()
+    );
+  }
 }
 
 /**
@@ -300,6 +426,14 @@ class Storage_ {
   }
 }
 
+/**
+ * ポートレートAPIの呼び出しで必要となる組織ID一覧を、非公式のweb appから取得するためのクラス。
+ *
+ * 非公式web appの内実は、公式サイトに掲載されている詳細仕様の別紙（組織ID一覧等）をダウンロードして、
+ * Googleスプレッドシートにしたもの。web appとして公開した上で、GETリクエストを受けると
+ * そのコンテンツをJSON形式で返す
+ * @see https://api-portal.portraits.niad.ac.jp/api-info.html
+ */
 class PortraitsIdsService_ {
   /**
    * @param {String} webAppUrl スクリプトプロパティに保存した、web appのURL
@@ -315,6 +449,7 @@ class PortraitsIdsService_ {
     this.intlIdSuffixes = response.intlIdSuffixes;
     this.organizationIds = response.organizationIds;
   }
+
   /**
    * 全てのID一覧を取得
    * @returns {Object}
@@ -326,29 +461,23 @@ class PortraitsIdsService_ {
       organizationIds: this.organizationIds,
     };
   }
+
   /**
    * 大学ID一覧を取得
    * @returns {Array}
    */
-  getUnivIds() {
+  getAllUnivIds() {
     return this.univIds;
   }
+
   /**
    * 指定した大学のIDを取得
    * @param {Array} targetUnivNames 大学名の配列
    * @returns {Array} 指定した大学について、大学名とIDがセットになったオブジェクトの配列
    */
-  getUnivId(targetUnivNames) {
-    // 入力値の検証
-    if (!Array.isArray(targetUnivNames)) {
-      throw new TypeError(
-        `[ERROR] 引数として渡された ${targetUnivNames} は配列ではありません。`
-      );
-    } else if (targetUnivNames.length < 1) {
-      throw new RangeError('[ERROR] 必ず1つ以上の大学名を指定してください。');
-    }
+  getUnivIds(targetUnivNames) {
     const univNameList = this.univIds.map((univ) => univ.UNIV_NAME);
-    targetUnivNames.forEach((targetUnivName) => {
+    this.verifyUnivNamesIds_(targetUnivNames).forEach((targetUnivName) => {
       if (!univNameList.includes(targetUnivName)) {
         throw new RangeError(
           `[ERROR] ${targetUnivName}の情報は登録されていません。`
@@ -359,19 +488,78 @@ class PortraitsIdsService_ {
       targetUnivNames.includes(univ.UNIV_NAME)
     );
   }
+
   /**
-   * 外国人用組織ID一覧を取得
+   * 外国人用組織ID用の所属課程分類ID一覧を取得
+   * 外国人用組織IDは `<大学ID>-<所属課程分類ID>` という文字列となっている。
+   * ここではハイフンを含めた所属課程分類IDとその課程分類がオブジェクトの配列として返ってくる。
    * @returns {array}
    */
-  getIntlIdSuffixes() {
+  getAllIntlIdSuffixes() {
     return this.intlIdSuffixes;
   }
+
+  /**
+   * 指定した大学IDの外国人用組織ID一式を、大学ごとにまとまった二次元配列として返す。
+   * @param {array} targetUnivIds 指定する大学IDの配列
+   * @returns {array} 大学IDごとに外国人用組織ID一式を格納した二次元配列
+   */
+  getIntlIds(targetUnivIds) {
+    return this.verifyUnivNamesIds_(targetUnivIds).map((targetUnivId) =>
+      this.intlIdSuffixes.map(
+        (intlIdSuffix) => targetUnivId + intlIdSuffix.INTL_ID_SUFFIX
+      )
+    );
+  }
+
   /**
    * 全ての年の学部・研究科等組織ID一覧を取得
    * @returns {Object}
    */
   getAllOrganizationIds() {
     return this.organizationIds;
+  }
+
+  /**
+   * 指定した年の、特定の大学についての学部・研究科等組織ID一覧を取得
+   * @param {number} targetYear 年度ごとに定義された学部・研究科等組織IDのうち、年度を指定
+   * @param {array} targetUnivNames 学部・研究科等組織IDを取得したい大学名（string）の配列
+   * @returns {Object}
+   */
+  getOrganizationIdsbyUniv(targetYear, targetUnivNames) {
+    if (!this.organizationIds[targetYear]) {
+      throw new RangeError(
+        `[ERROR] ${targetYear}年度の学部・研究科等組織IDは取得できません。`
+      );
+    }
+    let orgIdsObj = {};
+    this.verifyUnivNamesIds_(targetUnivNames).forEach((targetUnivName) => {
+      if (!this.organizationIds[targetYear][targetUnivName]) {
+        throw new RangeError(
+          `[ERROR] ${targetUnivName}の情報は登録されていません。`
+        );
+      }
+      orgIdsObj[targetUnivName] =
+        this.organizationIds[targetYear][targetUnivName];
+    });
+    return orgIdsObj;
+  }
+
+  /**
+   * 引数として渡した大学名の配列を検証。問題がなければ、入力値をそのまま出力する。
+   * @param {array} univNamesIds 情報を取得したい大学名または大学IDの配列
+   * @returns {array} 入力した大学名の配列
+   * @private
+   */
+  verifyUnivNamesIds_(univNamesIds) {
+    if (!Array.isArray(univNamesIds)) {
+      throw new TypeError(
+        `[ERROR] 引数として渡された ${univNamesIds} が配列ではありません。`
+      );
+    } else if (univNamesIds.length < 1) {
+      throw new RangeError('[ERROR] 必ず1つ以上の大学を指定してください。');
+    }
+    return univNamesIds;
   }
 }
 
