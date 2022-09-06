@@ -4,15 +4,57 @@
 
 GAS のスクリプトサンプルを交えながら、ライブラリの使い方をご紹介します。
 
+> ## 目次
+>
+> - [0. ライブラリを自分のスクリプトに追加する](#0-ライブラリを自分のスクリプトに追加する)
+>   - [0-1. 一般的な方法](0-1-一般的な方法)
+>   - [0-2. `appsscript.json` に追記する方法](#0-2-appsscriptjson-に追記する方法)
+> - [1. 使い方](#1-使い方)
+>   - [1-0. ポートレート API サービス呼び出し用の関数を定義](#1-0-ポートレート-api-サービス呼び出し用の関数を定義)
+>   - [1-1. ポートレート API のアクセスキーを登録](#1-1-ポートレート-api-のアクセスキーを登録)
+>   - [1-2. アクセスキーを削除（リセット）したい場合](#1-2-アクセスキーを削除リセットしたい場合)
+>   - [1-3. API 呼び出しに必要な組織 ID の参照](#1-3-api-呼び出しに必要な組織-id-の参照)
+>     - [1-3-1. 大学 ID の参照](#1-3-1-大学-id-の参照)
+>     - [1-3-2. 学部・研究科等組織 ID の参照](#1-3-2-学部研究科等組織-id-の参照)
+>     - [1-3-3. 外国人用組織 ID の参照](#1-3-3-外国人用組織-id-の参照)
+>     - [1-3-4. 全ての組織 ID を一度に取得する](#1-3-4-全ての組織-id-を一度に取得する)
+> - [2. 使用可能なメソッド一覧](#2-使用可能なメソッド一覧)
+>   - [`init(appName)`](#initappname)
+>   - [`getIds()`](#getids)
+>   - [`PortraitsService_`クラス](#portraitsservice_-クラス)
+>     - [`setAccessKey(accessKey)`](#setaccesskeyaccesskey)
+>     - [`setPropertyStore(propertyStore)`](#setpropertystorepropertystore)
+>     - [`setCache(cache)`](#setcachecache)
+>     - [`getAccessKey()`](#getaccesskey)
+>     - [`reset()`](#reset)
+>     - [`hasAccessKey()`](#hasaccesskey)
+>     - [`getStudentFacultyStatus(year, univId)`](#getstudentfacultystatusyear-univid)
+>     - [`getCollegeUndergraduateStudentsDetail(year, orgId)`](#getcollegeundergraduatestudentsdetailyear-orgid)
+>     - [`getGraduateStudentsDetail(year, orgId)`](#getgraduatestudentsdetailyear-orgid)
+>     - [`getJuniorCollegeUndergraduateStudentsDetail(year, univId)`](#getjuniorcollegeundergraduatestudentsdetailyear-univid)
+>     - [`getForeignStudent(year, foreignId)`](#getforeignstudentyear-foreignid)
+>     - [`getStatusAfterGraduationGraduates(year, orgId)`](#getstatusaftergraduationgraduatesyear-orgid)
+>     - [`getStatusAfterGraduationJobs(year, orgId)`](#getstatusaftergraduationjobsyear-orgid)
+>     - [`getSchoolFacilities(year, univId)`](#getschoolfacilitiesyear-univid)
+>   - [`PortraitsIdsService_`クラス](#portraitsidsservice_-クラス)
+>     - [`getAll()`](#getall)
+>     - [`getAllUnivIds()`](#getallunivids)
+>     - [`getUnivIds(targetUnivNames)`](#getunividstargetunivnames)
+>     - [`getAllIntlIdSuffixes()`](#getallintlidsuffixes)
+>     - [`getIntlIds(targetUnivIds)`](#getintlidstargetunivids)
+>     - [`getAllOrganizationIds()`](#getallorganizationids)
+>     - [`getOrganizationIdsbyUniv(targetYear, targetUnivNames)`](#getorganizationidsbyunivtargetyear-targetunivnames)
+> - [3. 告知](#3-告知)
+
 ## 0. ライブラリを自分のスクリプトに追加する
 
-一般的な方法：
+### 0-1. 一般的な方法
 
 1. GAS スクリプトエディターの編集画面左側にある「ライブラリ」の「＋」をクリック。
 2. スクリプト ID `1463IXI3rMb1b76Iwbm-jhuAiondvoDESz0FRPrOvi817HuKNnNJcfYhg` を入力して「検索」
 3. 最新のバージョンを選んで「追加」。ここでデフォルトで `Portraits` となっている ID が、スクリプト内でライブラリ呼び出しに使うものです。任意の文字列でいいですが、以下の説明は `Portraits` としてあります。
 
-`appsscript.json` に追記する方法：
+### 0-2. `appsscript.json` に追記する方法
 
 ```json
 {
@@ -47,7 +89,7 @@ function getPortraitsService_() {
 
 ### 1-1. ポートレート API のアクセスキーを登録
 
-初期設定として API のアクセスキーを登録するには、1-0 で定義した API サービス呼び出し関数を経由して、`setAccessKey(key)`メソッドを使います。
+初期設定として API のアクセスキーを登録するには、[1-0 で定義した API サービス呼び出し関数](#1-0-ポートレート-api-サービス呼び出し用の関数を定義)を経由して、`setAccessKey(key)`メソッドを使います。
 
 Google スプレッドシートのアドオンで、アクセスキーをアドオンのユーザに入力してもらう例：
 
@@ -288,7 +330,7 @@ Portraits.getIds().getAll();
 
 #### 戻り値
 
-[`PortraitsService_`](#portraitsservice-クラス)
+[`PortraitsService_`](#portraitsservice_-クラス)
 
 ### `getIds()`
 
@@ -296,7 +338,7 @@ Portraits.getIds().getAll();
 
 #### 戻り値
 
-[`PortraitsIdsService_`](#portraitsidsservice-クラス)
+[`PortraitsIdsService_`](#portraitsidsservice_-クラス)
 
 ### `PortraitsService_` クラス
 
@@ -312,7 +354,7 @@ Portraits.getIds().getAll();
 
 ##### 戻り値
 
-[`PortraitsIdsService_`](#portraitsidsservice-クラス): この`PortraitsIdsService_`, for chaining
+[`PortraitsService_`](#portraitsservice_-クラス): この`PortraitsService_`, for chaining
 
 #### `setPropertyStore(propertyStore)`
 
@@ -326,7 +368,7 @@ Portraits.getIds().getAll();
 
 ##### 戻り値
 
-[`PortraitsIdsService_`](#portraitsidsservice-クラス): この`PortraitsIdsService_`, for chaining
+[`PortraitsService_`](#portraitsservice_-クラス): この`PortraitsService_`, for chaining
 
 #### `setCache(cache)`
 
@@ -342,7 +384,7 @@ setPropertyStore で指定した property のスコープと揃えることを�
 
 ##### 戻り値
 
-[`PortraitsIdsService_`](#portraitsidsservice-クラス): この`PortraitsIdsService_`, for chaining
+[`PortraitsService_`](#portraitsservice_-クラス): この`PortraitsService_`, for chaining
 
 #### `getAccessKey()`
 
@@ -354,7 +396,7 @@ setPropertyStore で指定した property のスコープと揃えることを�
 
 #### `reset()`
 
-この PortraitsService\_を初期化。登録したアクセスキーを削除する。再度 API と接続するためには再定義が必要となる。
+この `PortraitsService_` を初期化。登録したアクセスキーを削除する。再度 API と接続するためには再定義が必要となる。
 
 #### `hasAccessKey()`
 
@@ -544,7 +586,7 @@ setPropertyStore で指定した property のスコープと揃えることを�
 
 ##### 戻り値
 
-`Object`: 詳細は [1-3-2. 学部・研究科等組織 ID の参照](#1-3-2-学部・研究科等組織-id-の参照)。
+`Object`: 詳細は [1-3-2. 学部・研究科等組織 ID の参照](#1-3-2-学部研究科等組織-id-の参照)。
 
 #### `getOrganizationIdsbyUniv(targetYear, targetUnivNames)`
 
@@ -559,7 +601,7 @@ setPropertyStore で指定した property のスコープと揃えることを�
 
 ##### 戻り値
 
-`Object`: 詳細は [1-3-2. 学部・研究科等組織 ID の参照](#1-3-2-学部・研究科等組織-id-の参照)。
+`Object`: 詳細は [1-3-2. 学部・研究科等組織 ID の参照](#1-3-2-学部研究科等組織-id-の参照)。
 
 ## 3. 告知
 
