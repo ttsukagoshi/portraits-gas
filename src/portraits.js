@@ -32,7 +32,7 @@ function init(appName) {
 
 /**
  * 大学ポートレートWeb-APIで大学基本情報等を呼び出す際に必要となる
- * 大学IDなどの組織IDを参照するためのクラス
+ * 大学IDなどの組織IDを参照するためのクラス呼び出し
  * @returns {PortraitsIdsService_}
  */
 function getIds() {
@@ -61,7 +61,7 @@ class PortraitsService_ {
    */
   setAccessKey(accessKey) {
     this.accessKey_ = accessKey;
-    this.getStorage().setValue(null, accessKey);
+    this.getStorage_().setValue(null, accessKey);
     return this;
   }
 
@@ -97,7 +97,7 @@ class PortraitsService_ {
    * 一貫したアクセスキーを保持するための、Storageとの接続レイヤー
    * @returns {Storage_} このPortraitsService_でのstorage
    */
-  getStorage() {
+  getStorage_() {
     if (!this.storage_) {
       const prefix = STORAGE_PREFIX + this.appName_;
       this.storage_ = new Storage_(prefix, this.propertyStore_, this.cache_);
@@ -110,7 +110,7 @@ class PortraitsService_ {
    * @returns {String} アクセスキー。アクセスキーが存在しない場合はnull
    */
   getAccessKey() {
-    return this.getStorage().getValue(null); // アクセスキー保存のために割り当てているnullキーで呼び出し
+    return this.getStorage_().getValue(null); // アクセスキー保存のために割り当てているnullキーで呼び出し
   }
 
   /**
@@ -118,7 +118,7 @@ class PortraitsService_ {
    * 再度APIと接続するためには再定義が必要となる。
    */
   reset() {
-    this.getStorage().reset();
+    this.getStorage_().reset();
   }
 
   /**
@@ -256,7 +256,7 @@ class PortraitsService_ {
   }
 
   /**
-   * 学校施設調査票(2-2)API情報取得
+   * 学校施設調査票API情報取得
    * @param {Number} year 対象年度の西暦4桁
    * @param {String} univId 4桁の大学ID
    * @returns {Object}
@@ -446,7 +446,7 @@ class PortraitsIdsService_ {
   }
 
   /**
-   * 全てのID一覧を取得
+   * 全ての種類の組織ID一覧を取得
    * @returns {Object}
    */
   getAll() {
@@ -458,7 +458,7 @@ class PortraitsIdsService_ {
   }
 
   /**
-   * 大学ID一覧を取得
+   * 全ての大学ID一覧を取得
    * @returns {Array}
    */
   getAllUnivIds() {
