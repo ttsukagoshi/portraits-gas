@@ -18,6 +18,7 @@ GAS のスクリプトサンプルを交えながら、ライブラリの使い�
 >     - [1-3-2. 学部・研究科等組織 ID の参照](#1-3-2-学部研究科等組織-id-の参照)
 >     - [1-3-3. 外国人用組織 ID の参照](#1-3-3-外国人用組織-id-の参照)
 >     - [1-3-4. 全ての組織 ID を一度に取得する](#1-3-4-全ての組織-id-を一度に取得する)
+>   - [1-4. 該当データが存在しない場合](#1-4-該当データが存在しない場合)
 > - [2. 使用可能なメソッド一覧](#2-使用可能なメソッド一覧)
 >   - [`init(appName)`](#initappname)
 >   - [`getIds()`](#getids)
@@ -314,6 +315,53 @@ Portraits.getIds().getAll();
     ...
   }
 }
+```
+
+### 1-4. 該当データが存在しない場合
+
+[公式ドキュメント](https://api-portal.portraits.niad.ac.jp/api-info.html)では明記されていませんが、API に対してリクエストを送ったときに、そのリクエストに該当するデータが存在しない場合、戻り値は次のようになります。
+
+```json
+{
+  "GET_STATUS_LIST": {
+    "RESULT": {
+      "STATUS": "1", // 該当データがあった場合は"0"
+      "ERROR_MSG": "正常に終了しましたが、該当データはありませんでした。", // 該当データがあった場合は"正常に終了しました。"
+      "DATE": "2022/09/04 14:40:20"
+    },
+    "PARAMETER": {
+      "YEAR": "2019年度",
+      "QUE_NAME": "学生教職員等状況票",
+      "ORG_ID": "0000"
+    },
+    "DATALIST_INF": {
+      "NUMBER": "0",
+      "DATA_INF": [{ "UPDATE_DATE": "", "CONTENT": null }]
+    }
+  }
+}
+```
+
+該当データがない、というのは具体的には
+
+- 年度が API でリクエスト可能な範囲外（2022 年 8 月 25 日の API リリース時点では 2021 年度のデータのみが利用可能）
+- 組織 ID（大学 ID など）が不正
+
+といったケースが想定されます。`GET_STATUS_LIST.RESULT.STATUS` の値に注目することで条件分岐を作ることもできます：
+
+```javascript
+const targetYears = [2019, 2020, 2021, 2022];
+const ps = getPortraitsService_();
+const univId = '0000';
+
+targetYears.forEach((year) => {
+  const response = ps.getStudentFacultyStatus(year, univId);
+  if (response.GET_STATUS_LIST.RESULT.STATUS === '0') {
+    // 該当データが存在する場合の処理
+  } else {
+    // 該当データが存在しない場合の処理
+  }
+});
 ```
 
 ## 2. 使用可能なメソッド一覧
