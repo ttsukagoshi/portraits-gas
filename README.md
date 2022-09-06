@@ -44,8 +44,6 @@ GAS のスクリプトサンプルを交えながら、ライブラリの使い�
 >     - [`getIntlIds(targetUnivIds)`](#getintlidstargetunivids)
 >     - [`getAllOrganizationIds()`](#getallorganizationids)
 >     - [`getOrganizationIdsbyUniv(targetYear, targetUnivNames)`](#getorganizationidsbyunivtargetyear-targetunivnames)
->     - [`reset()`](#reset)
->     - [`reset()`](#reset)
 > - [3. 告知](#3-告知)
 
 ## 0. ライブラリを自分のスクリプトに追加する
