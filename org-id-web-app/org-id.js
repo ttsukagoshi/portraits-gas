@@ -52,7 +52,7 @@ function doGet(event) {
         const cachedIds = documentCache.get(event.parameter.mode);
         returnJson[event.parameter.mode] = cachedIds
           ? JSON.parse(cachedIds)
-          : createJsonCache([event.parameter.mode]);
+          : createJsonCache([event.parameter.mode])[event.parameter.mode];
       } else {
         const cacheKeys = Object.values(CACHE_KEYS);
         const cachedResponses = documentCache.getAll(cacheKeys);
@@ -107,7 +107,7 @@ function triggeredCacheUpdate() {
 function createJsonCache(mode) {
   const modeList = Object.values(CACHE_KEYS);
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  mode = mode || modeList;
+  mode = Array.isArray(mode) && mode.length > 0 ? mode : modeList;
   let cachedObj = modeList.reduce((obj, modeType) => {
     if (mode.includes(modeType)) {
       if (modeType === 'univIds') {
