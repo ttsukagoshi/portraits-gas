@@ -257,7 +257,6 @@ function getIds_(mode) {
       method: 'get',
     }).getContentText()
   );
-  console.log(response);
   return mode ? response[mode] : response;
 }
 
