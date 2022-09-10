@@ -195,7 +195,7 @@
 }
 ```
 
-[README の「全ての組織 ID を一度に取得する」](#全ての組織-id-を一度に取得する)に関連記載あり。
+[README の「全ての組織 ID を一度に取得する」](README.md#全ての組織-id-を一度に取得する)に関連記載あり。
 
 ## `getAllUnivIds()`
 
@@ -214,7 +214,7 @@
 ]
 ```
 
-[README の「大学 ID の参照」](#大学-id-の参照)に関連記載あり。
+[README の「大学 ID の参照」](README.md#大学-id-の参照)に関連記載あり。
 
 ## `getUnivIds(targetUnivNames)`
 
@@ -239,7 +239,7 @@
 ]
 ```
 
-[README の「大学 ID の参照」](#大学-id-の参照)に関連記載あり。
+[README の「大学 ID の参照」](README.md#大学-id-の参照)に関連記載あり。
 
 ## `getAllIntlIdSuffixes()`
 
@@ -270,7 +270,7 @@
 ]
 ```
 
-[README の「外国人用組織 ID の参照」](#外国人用組織-id-の参照)に関連記載あり。
+[README の「外国人用組織 ID の参照」](README.md#外国人用組織-id-の参照)に関連記載あり。
 
 ## `getIntlIds(targetUnivIds)`
 
@@ -293,7 +293,7 @@
 ]
 ```
 
-上の例は `Portraits.getIntlIds(['0000', '1111'])` に対する出力の例。[README の「外国人用組織 ID の参照」](#外国人用組織-id-の参照) に関連記載あり。
+上の例は `Portraits.getIntlIds(['0000', '1111'])` に対する出力の例。[README の「外国人用組織 ID の参照」](README.md#外国人用組織-id-の参照) に関連記載あり。
 
 ## `getAllOrganizationIds()`
 
@@ -329,7 +329,7 @@
 }
 ```
 
-[README の「学部・研究科等組織 ID の参照」](#学部研究科等組織-id-の参照) に関連記載あり。
+[README の「学部・研究科等組織 ID の参照」](README.md#学部研究科等組織-id-の参照) に関連記載あり。
 
 ## `getOrganizationIdsbyUniv(targetYear, targetUnivNames)`
 
@@ -362,4 +362,4 @@
 }
 ```
 
-[README の「学部・研究科等組織 ID の参照」](#学部研究科等組織-id-の参照) に関連記載あり。
+[README の「学部・研究科等組織 ID の参照」](README.md#学部研究科等組織-id-の参照) に関連記載あり。

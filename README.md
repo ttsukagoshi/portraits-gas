@@ -54,18 +54,7 @@ GAS のスクリプトサンプルを交えながら、ライブラリの使い�
 const sf = Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
 ```
 
-下表で、本ライブラリにおいて API 呼び出し関連で使えるメソッド一覧です。URL 欄 は`https://edit.portraits.niad.ac.jp/api/v1/SchoolBasicSurvey/`に続く文字列を指します。（使用できるメソッドの網羅的なリストはレファレンスをご覧ください。）
-
-| エンドポイント名                    | URL                                                          | 本ライブラリでのメソッド                                               |
-| ----------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| 学生教員等状況票 API 情報取得       | `getStudentFacultyStatus?<パラメータ群>`                     | `getStudentFacultyStatus(accessKey, year, univId)`                     |
-| 学部学生内訳票 API 情報取得         | `getCollegeUndergraduateStudentsDetail?<パラメータ群>`       | `getCollegeUndergraduateStudentsDetail(accessKey, year, orgId)`        |
-| 大学院学生内訳票 API 情報取得       | `getGraduateStudentsDetail?<パラメータ群>`                   | `getGraduateStudentsDetail(accessKey, year, orgId)`                    |
-| 本科学生内訳票 API 情報取得         | `getJuniorCollegeUndergraduateStudentsDetail?<パラメータ群>` | `getJuniorCollegeUndergraduateStudentsDetail(accessKey, year, univId)` |
-| 外国人学生調査票 API 情報取得       | `getForeignStudent?<パラメータ群>`                           | `getForeignStudent(accessKey, year, foreignId)`                        |
-| 卒業後の状況調査票(2-1)API 情報取得 | `getStatusAfterGraduationGraduates?<パラメータ群>`           | `getStatusAfterGraduationGraduates(accessKey, year, orgId)`            |
-| 卒業後の状況調査票(2-2)API 情報取得 | `getStatusAfterGraduationJobs?<パラメータ群>`                | `getStatusAfterGraduationJobs(accessKey, year, orgId)`                 |
-| 学校施設調査票 API 情報取得         | `getSchoolFacilities?<パラメータ群>`                         | `getSchoolFacilities(accessKey, year, univId)`                         |
+使用できるメソッドの網羅的なリストは[レファレンス](reference.md)をご覧ください。
 
 ### API 呼び出しに必要な組織 ID の参照
 
@@ -300,4 +289,4 @@ targetYears.forEach((year) => {
 
 ## 告知
 
-この GAS ライブラリは、[googleworkspace/apps-script-oauth2](https://github.com/googleworkspace/apps-script-oauth2)から枠組みを引用したもので、[大学ポートレートの Web-API 機能](https://api-portal.portraits.niad.ac.jp/index.html)のライブラリとして使用するために改変してあります。独立行政法人大学改革支援・学位授与機構（NIAD）が運用する大学ポートレートの Web-API 機能を使用していますが、本ライブラリの開発は、NIAD と関係のない[Taro Tsukagoshi](https://github.com/ttsukagoshi)によって管理・更新されています。[大学ポートレートの Web-API 機能利用規約](https://api-portal.portraits.niad.ac.jp/agreement.html)および[本ライブラリのライセンス](https://github.com/ttsukagoshi/portraits-gas/blob/main/LICENSE)に同意した上で利用してください。
+この GAS ライブラリは、独立行政法人大学改革支援・学位授与機構（NIAD）が運用する大学ポートレートの Web-API 機能を使用していますが、本ライブラリの開発は、NIAD と関係のない[Taro Tsukagoshi](https://github.com/ttsukagoshi)によって管理・更新されています。[大学ポートレートの Web-API 機能利用規約](https://api-portal.portraits.niad.ac.jp/agreement.html)および[本ライブラリのライセンス](LICENSE)に同意した上で利用してください。
