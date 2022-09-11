@@ -54,7 +54,7 @@ GAS のスクリプトサンプルを交えながら、ライブラリの使い�
 const sf = Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
 ```
 
-使用できるメソッドの網羅的なリストは[レファレンス](reference.md)をご覧ください。
+使用できるメソッドの網羅的なリストは[レファレンス](REFERENCE.md)をご覧ください。
 
 ### API 呼び出しに必要な組織 ID の参照
 
