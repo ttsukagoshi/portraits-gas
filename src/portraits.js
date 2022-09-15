@@ -15,6 +15,12 @@
 const API_BASE_URL = 'https://edit.portraits.niad.ac.jp/api/';
 const API_VERSION = 'v1';
 
+// Jest用
+if (!UrlFetchApp) {
+  const { MockUrlFetchApp } = require('./__mocks__/mockUrlFetchApp');
+  var UrlFetchApp = MockUrlFetchApp;
+}
+
 /**
  * 学生教員等状況票API情報取得
  * @param {string} accessKey APIアクセスキー
