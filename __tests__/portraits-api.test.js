@@ -1,3 +1,6 @@
+/**
+ * ポートレートAPIを呼び出すメソッドのテスト一式
+ */
 const {
   getStudentFacultyStatus,
   getCollegeUndergraduateStudentsDetail,
