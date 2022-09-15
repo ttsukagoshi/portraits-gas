@@ -20,6 +20,12 @@ if (!UrlFetchApp) {
   const { MockUrlFetchApp } = require('./__mocks__/mockUrlFetchApp');
   var UrlFetchApp = MockUrlFetchApp;
 }
+if (!PropertiesService) {
+  const {
+    MockPropertiesService,
+  } = require('./__mocks__/mockPropertiesService');
+  var PropertiesService = MockPropertiesService;
+}
 
 /**
  * 学生教員等状況票API情報取得
@@ -157,6 +163,10 @@ function getSchoolFacilities(accessKey, year, univId) {
   return JSON.parse(UrlFetchApp.fetch(url, { method: 'get' }).getContentText());
 }
 
+/////////////////////////////////
+// 組織ID等を取得するためのメソッド //
+/////////////////////////////////
+
 /**
  * 全ての種類の組織ID一覧を取得
  * @returns {*}
@@ -179,7 +189,7 @@ function getAllUnivIds() {
  * @returns {array} 指定した大学について、大学名とIDがセットになったオブジェクトの配列
  */
 function getUnivIds(targetUnivNames) {
-  const univIds = getIds_('univIds');
+  const univIds = getAllUnivIds();
   const univNameList = univIds.map((univ) => univ.UNIV_NAME);
   verifyUnivNamesIds_(targetUnivNames).forEach((targetUnivName) => {
     if (!univNameList.includes(targetUnivName)) {
@@ -208,7 +218,7 @@ function getAllIntlIdSuffixes() {
  */
 function getIntlIds(targetUnivIds) {
   return verifyUnivNamesIds_(targetUnivIds).map((targetUnivId) =>
-    getIds_('intlIdSuffixes').map(
+    getAllIntlIdSuffixes().map(
       (intlIdSuffix) => targetUnivId + intlIdSuffix.INTL_ID_SUFFIX
     )
   );
@@ -298,6 +308,8 @@ if (typeof module === 'object') {
     getUnivIds,
     getAllIntlIdSuffixes,
     getIntlIds,
+    getAllOrganizationIds,
     getOrganizationIdsbyUniv,
+    verifyUnivNamesIds_,
   };
 }
