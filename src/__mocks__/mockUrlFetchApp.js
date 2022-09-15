@@ -1,5 +1,7 @@
+const { MockProperties } = require('./mockPropertiesService');
+
 /**
- * UrlFetchApp class
+ * Mock UrlFetchApp class
  * @see https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app?hl=en
  */
 class MockUrlFetchApp {
@@ -16,7 +18,7 @@ class MockUrlFetchApp {
 }
 
 /**
- * HTTPResponse class
+ * Mock HTTPResponse class
  * @see https://developers.google.com/apps-script/reference/url-fetch/http-response?hl=en
  */
 class MockHTTPResponse {
@@ -27,12 +29,17 @@ class MockHTTPResponse {
   constructor(url, params) {
     this.url = url;
     this.params = params;
+    this.isGetIds = url.startsWith(
+      new MockProperties().getProperties().webAppUrl
+    );
   }
   getContentText() {
-    return JSON.stringify({
-      url: this.url,
-      params: this.params,
-    });
+    return this.isGetIds
+      ? JSON.stringify(new MockProperties().getProperties().ids)
+      : JSON.stringify({
+          url: this.url,
+          params: this.params,
+        });
   }
 }
 
