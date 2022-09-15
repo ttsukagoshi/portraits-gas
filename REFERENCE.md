@@ -41,7 +41,212 @@
 
 #### 戻り値
 
-`Object`: `JSON.parse()`された学生教員等状況票 API の出力。詳細は公式ドキュメントを参照: https://api-portal.portraits.niad.ac.jp/api-info.html
+`Object`: `JSON.parse()`された学生教員等状況票 API の出力。
+
+##### 例
+
+```javascript
+// 大学IDとして「0000」が存在すると仮定すると
+getStudentFacultyStatus(accessKey, 2021, '0000');
+```
+
+戻り値は次のような形式となっている：
+
+```json
+{
+  "GET_STATUS_LIST": {
+    "RESULT": {
+      "STATUS": "0",
+      "ERROR_MSG": "正常に終了しました。",
+      "DATE": "2022/09/11 02:13:31"
+    },
+    "PARAMETER": {
+      "YEAR": "2021年度",
+      "QUE_NAME": "学生教職員等状況票",
+      "ORG_ID": "0000"
+    },
+    "DATALIST_INF": {
+      "NUMBER": "1",
+      "DATA_INF": [
+        {
+          "UPDATE_DATE": "2021/09/01 13:28:58",
+          "CONTENT": {
+            "GAKKO": {
+              "GAKKO_MEI": "○○大学",
+              "GAKKO_YUBIN": "123-1234",
+              "GAKKO_ADDR": "○○市○区○○"
+            },
+            "GAKUSEI_SU": {　// 学生数
+              "CHUYA_KBN": [　// 昼夜別の学生数と、課程別の人数内訳
+                {
+                  "CHUYA_MEI": "昼間",
+                  "GAKUSEI_SU_KEI_M": "12752", // key末尾「_M」が男女別内訳のうち男の集計値を指す（以下同じ）
+                  "GAKUSEI_SU_KEI_F": "5396", // key末尾「_F」が男女別内訳のうち女の集計値を指す（以下同じ）
+                  "GAKUSEI_SU_KEI": "18148", // key末尾「_KEI」が男女の合計を指す（以下同じ）
+                  "GAKUSEI_SU": [
+                    {
+                      "GAKUSEI_SU": "1722",
+                      "GAKUSEI_TYPE": "博士課程",
+                      "GAKUSEI_SEX": "男"
+                    },
+                    ...
+                  ]
+                },
+                {
+                  "CHUYA_MEI": "夜間",
+                  "GAKUSEI_SU_KEI_M": "0",
+                  "GAKUSEI_SU_KEI_F": "0",
+                  "GAKUSEI_SU_KEI": "0",
+                  "GAKUSEI_SU": [
+                    {
+                      "GAKUSEI_SU": "",
+                      "GAKUSEI_TYPE": "博士課程",
+                      "GAKUSEI_SEX": "男"
+                    },
+                    ...
+                  ]
+                }
+              ]
+            },
+            "KYOIN_SU_HOMMUSHA": { // 教員数（本務）
+              "HOMMU": [ // 学長・副学長の人数
+                {
+                  "KYOIN_MEI": "学長・副学長",
+                  "KYOIN_MEI_FUGO": "9980",
+                  "HOMMU_KYOIN_SU_KEI_M": "4",
+                  "HOMMU_KYOIN_SU_KEI_F": "1",
+                  "HOMMU_KYOIN_SU_KEI": "5",
+                  "KYOIN_SU": [ // 学長・副学長の人数内訳（それぞれ男女別）
+                    {
+                      "KYOIN_SU": "1",
+                      "KYOIN_TYPE": "本務",
+                      "KYOIN_SHOKUNA": "学長",
+                      "KYOIN_SEX": "男"
+                    },
+                    ...
+                  ]
+                }
+              ],
+              "GAKUBU": [ // 学内組織別（学部・大学院・附属研究所etc.）の本務教員数（学部別）
+                {
+                  "GAKUBU_MEI": "○○学部",
+                  "GAKUBU_MEI_FUGO": "1A00",
+                  "GAKUBU_KYOIN_SU_KEI_M": "8",
+                  "GAKUBU_KYOIN_SU_KEI_F": "1",
+                  "GAKUBU_KYOIN_SU_KEI": "9",
+                  "KYOIN_SU": [ // 職階（教授、准教授、助教、助手、講師）別・男女別の教員数内訳
+                    {
+                      "KYOIN_SU": "",
+                      "KYOIN_TYPE": "本務",
+                      "KYOIN_SHOKUNA": "教授",
+                      "KYOIN_SEX": "男"
+                    },
+                    ...
+                  ]
+                },
+                ...
+              ],
+              "KEI": [ // 教員数（本務）合計
+                {
+                  "MEISHO": "計",
+                  "MEISHO_FUGO": "9999",
+                  "KYOIN_SU_KEI_M": "1961",
+                  "KYOIN_SU_KEI_F": "341",
+                  "KYOIN_SU_KEI": "2302",
+                  "KYOIN_SU": [ // 職階別・男女別の内訳
+                    {
+                      "KYOIN_SU": "1",
+                      "KYOIN_TYPE": "本務",
+                      "KYOIN_SHOKUNA": "学長",
+                      "KYOIN_SEX": "男"
+                    },
+                    ...
+                  ]
+                }
+              ]
+            },
+            "KYOIN_SU_HOMMUSHA_UCHI": [ // 教員数（本務）の内数で、次に該当する者それぞれの人数内訳
+              // 大学院担当者、休職者、または外国人
+              {
+                "HOMMU_UCHI": [
+                  {
+                    "HOMMU_MEI": "大学院担当者", // ここが大学院担当者 || 休職者 || 外国人
+                    "KYOIN_SU_KEI_M": "1772",
+                    "KYOIN_SU_KEI_F": "293",
+                    "KYOIN_SU_KEI": "2065",
+                    "KYOIN_SU": [ // 職階別・男女別の内訳
+                      {
+                        "KYOIN_SU": "640",
+                        "KYOIN_TYPE": "大学院担当者",
+                        "KYOIN_SHOKUNA": "教授",
+                        "KYOIN_SEX": "男"
+                      },
+                      ...
+                    ]
+                  },
+                  ...
+                ]
+              }
+            ],
+            "KYOIN_SU_KEMMUSHA": [ // 教員数（兼務）
+              {
+                "KYOIN_SU_KEI_M": "986",
+                "KYOIN_SU_KEI_F": "182",
+                "KYOIN_SU_KEI": "1168",
+                "KYOIN_SU": [　// 兼務者分類別・男女別の内訳
+                  {
+                    "KYOIN_SU": "",
+                    "KYOIN_TYPE": "兼務",
+                    "KYOIN_BUNRUI": "学長", // 兼務者分類（学長、副学長、教員からの兼務、教員以外からの兼務）
+                    "KYOIN_SEX": "男"
+                  },
+                  ...
+                ]
+              }
+            ],
+            "KYOIN_SU_KEMMUSHA_GAI": [ // 教員（兼務）のうち外国人数
+              {
+                "KYOIN_SU_KEI": "82",
+                "KYOIN_SU": [ // 男女別内訳（length = 2の配列）
+                  {
+                    "KYOIN_SU": "57",
+                    "KYOIN_BUNRUI": "外国人", // ここでは「外国人」のみ
+                    "KYOIN_TYPE": "兼務",
+                    "KYOIN_SEX": "男"
+                  },
+                  ...
+                ]
+              }
+            ],
+            "SHOKUIN_SU": [ // 職員数。本務・兼務で別オブジェクトとなっている。
+              { // 本務職員についてのオブジェクト
+                "SHOKUIN_SU_KEI_M": "1320",
+                "SHOKUIN_SU_KEI_F": "2039",
+                "SHOKUIN_SU_KEI": "3359",
+                "SHOKUIN_SU_KEITO": [ // 専門系統別、男女別の内訳
+                  {
+                    "SHOKUIN_SU": "623",
+                    "SHOKUIN_TYPE": "本務", // ここでは全て本務 or 兼務
+                    "SHOKUIN_KEITO": "事務系", // 他には「技術技能系」「医療系」「教務系」「その他」など。
+                    "SHOKUIN_SHOKUSHU": "", //　職種。「看護師」など、特定のものについて値あり。
+                    "SHOKUIN_KANGO_TYPE": "", // 看護師の場合は「附属病院」「学生の健康管理」
+                    "SHOKUIN_SEX": "男" // 男女
+                  },
+                  ...
+                ]
+              },
+              ... （もう1項目、兼務者についての一式オブジェクト）
+            ],
+            "GAKKO_KIHON": { "GAKKO_CHOSA_CD": "0000", "SHOZAICHI_CD": "00" }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+各 key の詳細は公式ドキュメントを参照: https://api-portal.portraits.niad.ac.jp/api-info.html
 
 ### `getCollegeUndergraduateStudentsDetail(accessKey, year, orgId)`
 
