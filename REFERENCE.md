@@ -79,33 +79,20 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
             "GAKUSEI_SU": {　// 学生数
               "CHUYA_KBN": [　// 昼夜別の学生数と、課程別の人数内訳
                 {
-                  "CHUYA_MEI": "昼間",
+                  "CHUYA_MEI": "昼間", // 昼間、夜間
                   "GAKUSEI_SU_KEI_M": "12752", // key末尾「_M」が男女別内訳のうち男の集計値を指す（以下同じ）
                   "GAKUSEI_SU_KEI_F": "5396", // key末尾「_F」が男女別内訳のうち女の集計値を指す（以下同じ）
                   "GAKUSEI_SU_KEI": "18148", // key末尾「_KEI」が男女の合計を指す（以下同じ）
                   "GAKUSEI_SU": [
                     {
                       "GAKUSEI_SU": "1722",
-                      "GAKUSEI_TYPE": "博士課程",
-                      "GAKUSEI_SEX": "男"
+                      "GAKUSEI_TYPE": "博士課程", // 学生種別
+                      "GAKUSEI_SEX": "男" // 男女
                     },
                     ...
                   ]
                 },
-                {
-                  "CHUYA_MEI": "夜間",
-                  "GAKUSEI_SU_KEI_M": "0",
-                  "GAKUSEI_SU_KEI_F": "0",
-                  "GAKUSEI_SU_KEI": "0",
-                  "GAKUSEI_SU": [
-                    {
-                      "GAKUSEI_SU": "",
-                      "GAKUSEI_TYPE": "博士課程",
-                      "GAKUSEI_SEX": "男"
-                    },
-                    ...
-                  ]
-                }
+                ... // 夜間についての同様のオブジェクト
               ]
             },
             "KYOIN_SU_HOMMUSHA": { // 教員数（本務）
@@ -121,7 +108,7 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
                       "KYOIN_SU": "1",
                       "KYOIN_TYPE": "本務",
                       "KYOIN_SHOKUNA": "学長",
-                      "KYOIN_SEX": "男"
+                      "KYOIN_SEX": "女" // 男女
                     },
                     ...
                   ]
@@ -138,8 +125,8 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
                     {
                       "KYOIN_SU": "",
                       "KYOIN_TYPE": "本務",
-                      "KYOIN_SHOKUNA": "教授",
-                      "KYOIN_SEX": "男"
+                      "KYOIN_SHOKUNA": "教授", // 教授、准教授、助教、助手、講師
+                      "KYOIN_SEX": "男" // 男女
                     },
                     ...
                   ]
@@ -157,8 +144,8 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
                     {
                       "KYOIN_SU": "1",
                       "KYOIN_TYPE": "本務",
-                      "KYOIN_SHOKUNA": "学長",
-                      "KYOIN_SEX": "男"
+                      "KYOIN_SHOKUNA": "学長", // 学長、副学長、教授、准教授、助教、助手、講師
+                      "KYOIN_SEX": "女" // 男女
                     },
                     ...
                   ]
@@ -178,8 +165,8 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
                       {
                         "KYOIN_SU": "640",
                         "KYOIN_TYPE": "大学院担当者",
-                        "KYOIN_SHOKUNA": "教授",
-                        "KYOIN_SEX": "男"
+                        "KYOIN_SHOKUNA": "教授", // 教授、准教授、助教、助手、講師
+                        "KYOIN_SEX": "男" // 男女
                       },
                       ...
                     ]
@@ -198,7 +185,7 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
                     "KYOIN_SU": "",
                     "KYOIN_TYPE": "兼務",
                     "KYOIN_BUNRUI": "学長", // 兼務者分類（学長、副学長、教員からの兼務、教員以外からの兼務）
-                    "KYOIN_SEX": "男"
+                    "KYOIN_SEX": "女" // 男女
                   },
                   ...
                 ]
@@ -212,9 +199,9 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
                     "KYOIN_SU": "57",
                     "KYOIN_BUNRUI": "外国人", // ここでは「外国人」のみ
                     "KYOIN_TYPE": "兼務",
-                    "KYOIN_SEX": "男"
+                    "KYOIN_SEX": "男" // 男女
                   },
-                  ...
+                  ... // 「女」についての同様のオブジェクト
                 ]
               }
             ],
@@ -230,12 +217,12 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
                     "SHOKUIN_KEITO": "事務系", // 他には「技術技能系」「医療系」「教務系」「その他」など。
                     "SHOKUIN_SHOKUSHU": "", //　職種。「看護師」など、特定のものについて値あり。
                     "SHOKUIN_KANGO_TYPE": "", // 看護師の場合は「附属病院」「学生の健康管理」
-                    "SHOKUIN_SEX": "男" // 男女
+                    "SHOKUIN_SEX": "女" // 男女
                   },
                   ...
                 ]
               },
-              ... （もう1項目、兼務者についての一式オブジェクト）
+              ... //（もう1項目、兼務者についての一式オブジェクト）
             ],
             "GAKKO_KIHON": { "GAKKO_CHOSA_CD": "0000", "SHOZAICHI_CD": "00" }
           }
