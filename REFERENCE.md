@@ -345,7 +345,151 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
 
 #### 戻り値
 
-`Object`: `JSON.parse()`された学校施設調査票 API の出力。詳細は公式ドキュメントを参照: https://api-portal.portraits.niad.ac.jp/api-info.html
+`Object`: `JSON.parse()`された学校施設調査票 API の出力。
+
+##### 例
+
+```javascript
+// 大学IDとして「0000」が存在すると仮定すると
+getSchoolFacilities(accessKey, 2021, '0000');
+```
+
+戻り値は次のような形式となっている：
+
+```json
+{
+  "GET_STATUS_LIST": {
+    "RESULT": {
+      "STATUS": "0",
+      "ERROR_MSG": "正常に終了しました。",
+      "DATE": "2022/09/18 00:59:52"
+    },
+    "PARAMETER": {
+      "YEAR": "2021年度",
+      "QUE_NAME": "学校施設調査票",
+      "ORG_ID": "0000"
+    },
+    "DATALIST_INF": {
+      "NUMBER": "1",
+      "DATA_INF": [
+        {
+          "UPDATE_DATE": "2021/09/06 15:26:10",
+          "CONTENT": {
+            "GAKKO": {
+              "GAKKO_MEI": "○○大学",
+              "GAKKO_YUBIN": "000-0000",
+              "GAKKO_ADDR": "○○市○○１－２－３"
+            },
+            "GAKKO_TOCHI_YOTO_AREA": [
+              // 学校土地の用途別面積
+              {
+                "AREA_KEI": "50507132",
+                "AREA": [
+                  {
+                    "AREA": "894580", // 面積
+                    "AREA_YOTO": "校舎・講堂・体育施設敷地", // 用途。「校舎・講堂・体育施設敷地」「屋外運動場敷地」「附属病院敷地」「附置研究所敷地」「附属研究施設敷地」「寄宿舎施設」「その他」
+                    "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
+                  },
+                  ...
+                ]
+              }
+            ],
+            "GAKKO_TATEMONO_YOTO_AREA": [
+              // 学校建物の用途別面積
+              {
+                "AREA_KEI": "0",
+                "AREA": [
+                  {
+                    "AREA": "", // 面積
+                    "AREA_YOTO": "校舎／講義室・演習室", // 用途。「校舎／講義室・演習室」「校舎／実験室・実習室」「校舎／研究室」「校舎／図書館」「校舎／管理関係・その他」「講堂」「体育施設」「附属病院」「附置研究所」「附置研究施設」「寄宿舎」「その他」「学校建物の用途別面積のうち厚生補導施設（再掲）」
+                    "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
+                  },
+                  ...
+                ]
+              }
+            ],
+            "GAKKO_TATEMONO_KOZO_AREA": [
+              // 学校建物の構造別面積
+              {
+                "AREA_KEI": "0",
+                "AREA": [
+                  {
+                    "AREA": "", // 面積
+                    "AREA_SHOYU_SHAKUYO": "設置者所有", // 「設置者所有」「借用」
+                    "AREA_KOZO": "木造", // 「木造」「鉄筋コンクリート造」「鉄骨造」「その他」
+                    "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
+                  },
+                  ...
+                ]
+              }
+            ],
+            "GAKKO_TATEMONO_SHINCHIKU_ZOKA_AREA": [
+              // 学校建物の新築増加の面積
+              {
+                "AREA_KEI": "0",
+                "AREA": [
+                  {
+                    "AREA": "", // 面積
+                    "AREA_ZOKA_RIYU": "新改築", // 増加理由。「新改築」「購入又は寄付」「用途変更等による増」
+                    "AREA_NENDO": "（2020年5月2日～2021年5月1日）", // 年度「（yyyy-1年5月2日～yyyy年5月1日）」（yyyyがデータ取得で指定した西暦4桁の年度）
+                    "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
+                  },
+                  ...
+                ]
+              }
+            ],
+            "GAKKO_TATEMONO_HIGAITO_GENSHO_AREA": [
+              // 学校建物の被害等減少の面積
+              {
+                "AREA_KEI": "0",
+                "AREA": [
+                  {
+                    "AREA": "", // 面積
+                    "AREA_GENSHO_RIYU": "全壊", // 減少理由。「全壊」「半壊」「改築、用途変更又は用途廃止等による減」
+                    "AREA_NENDO": "（2020年5月2日～2021年5月1日）", // 年度「（yyyy-1年5月2日～yyyy年5月1日）」（yyyyがデータ取得で指定した西暦4桁の年度）
+                    "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
+                  },
+                  ...
+                ]
+              }
+            ],
+            "ZENNENDO_GAKKO_TATEMONO_AREA": {
+              // 前年度の学校建物の面積
+              "ZENNENDO_AREA": "", // 面積
+              "ZENNENDO_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
+            },
+            "SHOKUIN_SHUKUSHA_YOTO_TOCHI_AREA": [
+              // 職員宿舎の用途別土地面積
+              {
+                "AREA": {
+                  "AREA": "59845", // 面積
+                  "AREA_SHIKICHIMEI": "職員住宅敷地", // 敷地名。「職員住宅敷地」「看護師宿舎敷地」
+                  "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
+                }
+              },
+              ...
+            ],
+            "SHOKUIN_SHUKUSHA_YOTO_TATEMONO_AREA": [
+              // 職員宿舎の用途別建物面積
+              {
+                "AREA": {
+                  "AREA": "", // 面積
+                  "AREA_TATEMONOMEI": "職員住宅", // 建物名。「職員住宅」「看護師宿舎」
+                  "AREA_TANI": "㎡"// 面積の単位。固定値「㎡」（平方メートル）
+                }
+              },
+              ...
+            ],
+            "GAKKO_KIHON_INFO": { "GAKKO_CHOSA_CD": "0000" }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+各 key の詳細は公式ドキュメントを参照: https://api-portal.portraits.niad.ac.jp/api-info.html
 
 ## API 呼び出しに必要な組織 ID の参照
 
