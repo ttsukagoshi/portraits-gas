@@ -2,24 +2,22 @@
 
 [![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg?style=flat-square)](https://github.com/google/clasp) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![CodeQL](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/codeql-analysis.yml) [![Deploy](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/deploy.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/deploy.yml) [![Lint Code Base](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/linter.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/linter.yml) [![coverage](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/coverage.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/coverage.yml)
 
-大学ポートレート Web-API https://api-portal.portraits.niad.ac.jp/ （以下「ポートレート API」）を Google Apps Script (GAS) で使うためのライブラリです。
+大学ポートレート Web-API https://api-portal.portraits.niad.ac.jp/ （ポートレート API）を Google Apps Script（GAS）で使うためのライブラリです。
 
 GAS のスクリプトサンプルを交えながら、ライブラリの使い方をご紹介します。
 
-> ## 目次
->
-> - [ライブラリを自分のスクリプトに追加する](#ライブラリを自分のスクリプトに追加する)
->   - [一般的な方法](#一般的な方法)
->   - [`appsscript.json` に追記する方法](#appsscriptjson-に追記する方法)
-> - [使い方](#使い方)
->   - [ポートレート API を呼び出す](#ポートレート-api-を呼び出す)
->   - [API 呼び出しに必要な組織 ID の参照](#api-呼び出しに必要な組織-id-の参照)
->     - [大学 ID の参照](#大学-id-の参照)
->     - [学部・研究科等組織 ID の参照](#学部研究科等組織-id-の参照)
->     - [外国人用組織 ID の参照](#外国人用組織-id-の参照)
->     - [全ての組織 ID を一度に取得する](#全ての組織-id-を一度に取得する)
->   - [該当データが存在しない場合](#該当データが存在しない場合)
-> - [告知](#告知)
+## 目次
+
+- [ライブラリを自分のスクリプトに追加する](#ライブラリを自分のスクリプトに追加する)
+- [使い方](#使い方)
+  - [ポートレート API を呼び出す](#ポートレート-api-を呼び出す)
+  - [API 呼び出しに必要な組織 ID の参照](#api-呼び出しに必要な組織-id-の参照)
+    - [大学 ID の参照](#大学-id-の参照)
+    - [学部・研究科等組織 ID の参照](#学部研究科等組織-id-の参照)
+    - [外国人用組織 ID の参照](#外国人用組織-id-の参照)
+    - [全ての組織 ID を一度に取得する](#全ての組織-id-を一度に取得する)
+  - [該当データが存在しない場合](#該当データが存在しない場合)
+- [告知](#告知)
 
 ## ライブラリを自分のスクリプトに追加する
 
