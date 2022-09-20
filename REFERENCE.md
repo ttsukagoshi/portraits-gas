@@ -2,28 +2,28 @@
 
 このライブラリで使用できるメソッドの一覧です。
 
-> ## 目次
->
-> ### ポートレート API を呼び出す
->
-> - [`getStudentFacultyStatus(accessKey, year, univId)`](#getstudentfacultystatusaccesskey-year-univid)
-> - [`getCollegeUndergraduateStudentsDetail(accessKey, year, orgId)`](#getcollegeundergraduatestudentsdetailaccesskey-year-orgid)
-> - [`getGraduateStudentsDetail(accessKey, year, orgId)`](#getgraduatestudentsdetailaccesskey-year-orgid)
-> - [`getJuniorCollegeUndergraduateStudentsDetail(accessKey, year, univId)`](#getjuniorcollegeundergraduatestudentsdetailaccesskey-year-univid)
-> - [`getForeignStudent(accessKey, year, foreignId)`](#getforeignstudentaccesskey-year-foreignid)
-> - [`getStatusAfterGraduationGraduates(accessKey, year, orgId)`](#getstatusaftergraduationgraduatesaccesskey-year-orgid)
-> - [`getStatusAfterGraduationJobs(accessKey, year, orgId)`](#getstatusaftergraduationjobsaccesskey-year-orgid)
-> - [`getSchoolFacilities(accessKey, year, univId)`](#getschoolfacilitiesaccesskey-year-univid)
->
-> ### API 呼び出しに必要な組織 ID を参照する
->
-> - [`getAllIds()`](#getallids)
-> - [`getAllUnivIds()`](#getallunivids)
-> - [`getUnivIds(targetUnivNames)`](#getunividstargetunivnames)
-> - [`getAllIntlIdSuffixes()`](#getallintlidsuffixes)
-> - [`getIntlIds(targetUnivIds)`](#getintlidstargetunivids)
-> - [`getAllOrganizationIds()`](#getallorganizationids)
-> - [`getOrganizationIdsbyUniv(targetYear, targetUnivNames)`](#getorganizationidsbyunivtargetyear-targetunivnames)
+## 目次
+
+### ポートレート API を呼び出す
+
+- [`getStudentFacultyStatus(accessKey, year, univId)`](#getstudentfacultystatusaccesskey-year-univid)
+- [`getCollegeUndergraduateStudentsDetail(accessKey, year, orgId)`](#getcollegeundergraduatestudentsdetailaccesskey-year-orgid)
+- [`getGraduateStudentsDetail(accessKey, year, orgId)`](#getgraduatestudentsdetailaccesskey-year-orgid)
+- [`getJuniorCollegeUndergraduateStudentsDetail(accessKey, year, univId)`](#getjuniorcollegeundergraduatestudentsdetailaccesskey-year-univid)
+- [`getForeignStudent(accessKey, year, foreignId)`](#getforeignstudentaccesskey-year-foreignid)
+- [`getStatusAfterGraduationGraduates(accessKey, year, orgId)`](#getstatusaftergraduationgraduatesaccesskey-year-orgid)
+- [`getStatusAfterGraduationJobs(accessKey, year, orgId)`](#getstatusaftergraduationjobsaccesskey-year-orgid)
+- [`getSchoolFacilities(accessKey, year, univId)`](#getschoolfacilitiesaccesskey-year-univid)
+
+### API 呼び出しに必要な組織 ID を参照する
+
+- [`getAllIds()`](#getallids)
+- [`getAllUnivIds()`](#getallunivids)
+- [`getUnivIds(targetUnivNames)`](#getunividstargetunivnames)
+- [`getAllIntlIdSuffixes()`](#getallintlidsuffixes)
+- [`getIntlIds(targetUnivIds)`](#getintlidstargetunivids)
+- [`getAllOrganizationIds()`](#getallorganizationids)
+- [`getOrganizationIdsbyUniv(targetYear, targetUnivNames)`](#getorganizationidsbyunivtargetyear-targetunivnames)
 
 ## ポートレート API を呼び出す
 
@@ -76,8 +76,10 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
               "GAKKO_YUBIN": "123-1234",
               "GAKKO_ADDR": "○○市○区○○"
             },
-            "GAKUSEI_SU": {　// 学生数
-              "CHUYA_KBN": [　// 昼夜別の学生数と、課程別の人数内訳
+            "GAKUSEI_SU": {
+              // 学生数
+              "CHUYA_KBN": [
+                // 昼夜別の学生数と、課程別の人数内訳
                 {
                   "CHUYA_MEI": "昼間", // 昼間、夜間
                   "GAKUSEI_SU_KEI_M": "12752", // key末尾「_M」が男女別内訳のうち男の集計値を指す（以下同じ）
@@ -95,33 +97,38 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                 ... // 夜間についての同様のオブジェクト
               ]
             },
-            "KYOIN_SU_HOMMUSHA": { // 教員数（本務）
-              "HOMMU": [ // 学長・副学長の人数
+            "KYOIN_SU_HOMMUSHA": {
+              // 教員数（本務）
+              "HOMMU": [
+                // 学長・副学長の人数
                 {
                   "KYOIN_MEI": "学長・副学長",
                   "KYOIN_MEI_FUGO": "9980",
                   "HOMMU_KYOIN_SU_KEI_M": "4",
                   "HOMMU_KYOIN_SU_KEI_F": "1",
                   "HOMMU_KYOIN_SU_KEI": "5",
-                  "KYOIN_SU": [ // 学長・副学長の人数内訳（それぞれ男女別）
+                  "KYOIN_SU": [
+                    // 学長・副学長の人数内訳（それぞれ男女別）
                     {
                       "KYOIN_SU": "1",
                       "KYOIN_TYPE": "本務",
-                      "KYOIN_SHOKUNA": "学長",
+                      "KYOIN_SHOKUNA": "学長", // 学長、副学長
                       "KYOIN_SEX": "女" // 男女
                     },
                     ...
                   ]
                 }
               ],
-              "GAKUBU": [ // 学内組織別（学部・大学院・附属研究所etc.）の本務教員数（学部別）
+              "GAKUBU": [
+                // 学内組織別（学部・大学院・附属研究所etc.）の本務教員数（学部別）
                 {
                   "GAKUBU_MEI": "○○学部",
                   "GAKUBU_MEI_FUGO": "1A00",
                   "GAKUBU_KYOIN_SU_KEI_M": "8",
                   "GAKUBU_KYOIN_SU_KEI_F": "1",
                   "GAKUBU_KYOIN_SU_KEI": "9",
-                  "KYOIN_SU": [ // 職階（教授、准教授、助教、助手、講師）別・男女別の教員数内訳
+                  "KYOIN_SU": [
+                    // 職階（教授、准教授、助教、助手、講師）別・男女別の教員数内訳
                     {
                       "KYOIN_SU": "",
                       "KYOIN_TYPE": "本務",
@@ -133,14 +140,16 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                 },
                 ...
               ],
-              "KEI": [ // 教員数（本務）合計
+              "KEI": [
+                // 教員数（本務）合計
                 {
                   "MEISHO": "計",
                   "MEISHO_FUGO": "9999",
                   "KYOIN_SU_KEI_M": "1961",
                   "KYOIN_SU_KEI_F": "341",
                   "KYOIN_SU_KEI": "2302",
-                  "KYOIN_SU": [ // 職階別・男女別の内訳
+                  "KYOIN_SU": [
+                    // 職階別・男女別の内訳
                     {
                       "KYOIN_SU": "1",
                       "KYOIN_TYPE": "本務",
@@ -152,7 +161,8 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                 }
               ]
             },
-            "KYOIN_SU_HOMMUSHA_UCHI": [ // 教員数（本務）の内数で、次に該当する者それぞれの人数内訳
+            "KYOIN_SU_HOMMUSHA_UCHI": [
+              // 教員数（本務）の内数で、次に該当する者それぞれの人数内訳
               // 大学院担当者、休職者、または外国人
               {
                 "HOMMU_UCHI": [
@@ -161,7 +171,8 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                     "KYOIN_SU_KEI_M": "1772",
                     "KYOIN_SU_KEI_F": "293",
                     "KYOIN_SU_KEI": "2065",
-                    "KYOIN_SU": [ // 職階別・男女別の内訳
+                    "KYOIN_SU": [
+                      // 職階別・男女別の内訳
                       {
                         "KYOIN_SU": "640",
                         "KYOIN_TYPE": "大学院担当者",
@@ -175,12 +186,14 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                 ]
               }
             ],
-            "KYOIN_SU_KEMMUSHA": [ // 教員数（兼務）
+            "KYOIN_SU_KEMMUSHA": [
+              // 教員数（兼務）
               {
                 "KYOIN_SU_KEI_M": "986",
                 "KYOIN_SU_KEI_F": "182",
                 "KYOIN_SU_KEI": "1168",
-                "KYOIN_SU": [　// 兼務者分類別・男女別の内訳
+                "KYOIN_SU": [
+                  // 兼務者分類別・男女別の内訳
                   {
                     "KYOIN_SU": "",
                     "KYOIN_TYPE": "兼務",
@@ -191,10 +204,12 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                 ]
               }
             ],
-            "KYOIN_SU_KEMMUSHA_GAI": [ // 教員（兼務）のうち外国人数
+            "KYOIN_SU_KEMMUSHA_GAI": [
+              // 教員（兼務）のうち外国人数
               {
                 "KYOIN_SU_KEI": "82",
-                "KYOIN_SU": [ // 男女別内訳（length = 2の配列）
+                "KYOIN_SU": [
+                  // 男女別内訳（length = 2の配列）
                   {
                     "KYOIN_SU": "57",
                     "KYOIN_BUNRUI": "外国人", // ここでは「外国人」のみ
@@ -205,8 +220,10 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                 ]
               }
             ],
-            "SHOKUIN_SU": [ // 職員数。本務・兼務で別オブジェクトとなっている。
-              { // 本務職員についてのオブジェクト
+            "SHOKUIN_SU": [
+              // 職員数。本務・兼務で別オブジェクトとなっている。
+              {
+                // 本務職員についてのオブジェクト
                 "SHOKUIN_SU_KEI_M": "1320",
                 "SHOKUIN_SU_KEI_F": "2039",
                 "SHOKUIN_SU_KEI": "3359",
