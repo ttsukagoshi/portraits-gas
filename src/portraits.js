@@ -15,6 +15,18 @@
 const API_BASE_URL = 'https://edit.portraits.niad.ac.jp/api/';
 const API_VERSION = 'v1';
 
+// Jest用
+if (!UrlFetchApp) {
+  const { MockUrlFetchApp } = require('./__mocks__/mockUrlFetchApp');
+  var UrlFetchApp = MockUrlFetchApp;
+}
+if (!PropertiesService) {
+  const {
+    MockPropertiesService,
+  } = require('./__mocks__/mockPropertiesService');
+  var PropertiesService = MockPropertiesService;
+}
+
 /**
  * 学生教員等状況票API情報取得
  * @param {string} accessKey APIアクセスキー
@@ -24,7 +36,9 @@ const API_VERSION = 'v1';
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getStudentFacultyStatus(accessKey, year, univId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${univId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${univId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -41,7 +55,9 @@ function getStudentFacultyStatus(accessKey, year, univId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getCollegeUndergraduateStudentsDetail(accessKey, year, orgId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${orgId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -58,7 +74,9 @@ function getCollegeUndergraduateStudentsDetail(accessKey, year, orgId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getGraduateStudentsDetail(accessKey, year, orgId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${orgId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -75,7 +93,9 @@ function getGraduateStudentsDetail(accessKey, year, orgId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getJuniorCollegeUndergraduateStudentsDetail(accessKey, year, univId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${univId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${univId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -92,7 +112,9 @@ function getJuniorCollegeUndergraduateStudentsDetail(accessKey, year, univId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getForeignStudent(accessKey, year, foreignId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${foreignId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${foreignId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -109,7 +131,9 @@ function getForeignStudent(accessKey, year, foreignId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getStatusAfterGraduationGraduates(accessKey, year, orgId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${orgId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -126,7 +150,9 @@ function getStatusAfterGraduationGraduates(accessKey, year, orgId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getStatusAfterGraduationJobs(accessKey, year, orgId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${orgId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -143,13 +169,19 @@ function getStatusAfterGraduationJobs(accessKey, year, orgId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getSchoolFacilities(accessKey, year, univId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${univId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${univId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
     `/SchoolBasicSurvey/getSchoolFacilities?${params}`;
   return JSON.parse(UrlFetchApp.fetch(url, { method: 'get' }).getContentText());
 }
+
+/////////////////////////////////
+// 組織ID等を取得するためのメソッド //
+/////////////////////////////////
 
 /**
  * 全ての種類の組織ID一覧を取得
@@ -173,7 +205,7 @@ function getAllUnivIds() {
  * @returns {array} 指定した大学について、大学名とIDがセットになったオブジェクトの配列
  */
 function getUnivIds(targetUnivNames) {
-  const univIds = getIds_('univIds');
+  const univIds = getAllUnivIds();
   const univNameList = univIds.map((univ) => univ.UNIV_NAME);
   verifyUnivNamesIds_(targetUnivNames).forEach((targetUnivName) => {
     if (!univNameList.includes(targetUnivName)) {
@@ -202,7 +234,7 @@ function getAllIntlIdSuffixes() {
  */
 function getIntlIds(targetUnivIds) {
   return verifyUnivNamesIds_(targetUnivIds).map((targetUnivId) =>
-    getIds_('intlIdSuffixes').map(
+    getAllIntlIdSuffixes().map(
       (intlIdSuffix) => targetUnivId + intlIdSuffix.INTL_ID_SUFFIX
     )
   );
@@ -277,6 +309,21 @@ function verifyUnivNamesIds_(univNamesIds) {
   return univNamesIds;
 }
 
+/**
+ * 引数として渡したポートレートAPIのアクセスキーを検証。問題がなければ、入力値をそのまま出力する。
+ * @param {string} accessKey ポートレートAPIのアクセスキー
+ * @returns {string} 入力したアクセスキー
+ * @private
+ */
+function verifyAccessKey_(accessKey) {
+  if (!accessKey.match(/^[^:/@]+?$/)) {
+    throw new RangeError(
+      '[ERROR] 引数として渡されたアクセスキーが所定の形式でないようです。入力値をご確認ください。'
+    );
+  }
+  return accessKey;
+}
+
 if (typeof module === 'object') {
   module.exports = {
     getStudentFacultyStatus,
@@ -292,6 +339,9 @@ if (typeof module === 'object') {
     getUnivIds,
     getAllIntlIdSuffixes,
     getIntlIds,
+    getAllOrganizationIds,
     getOrganizationIdsbyUniv,
+    verifyUnivNamesIds_,
+    verifyAccessKey_,
   };
 }

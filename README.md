@@ -1,5 +1,7 @@
 # Portraits-GAS
 
+[![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg?style=flat-square)](https://github.com/google/clasp) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![CodeQL](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/codeql-analysis.yml) [![Deploy](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/deploy.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/deploy.yml) [![Lint Code Base](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/linter.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/linter.yml) [![coverage](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/coverage.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/coverage.yml)
+
 大学ポートレート Web-API https://api-portal.portraits.niad.ac.jp/ （以下「ポートレート API」）を Google Apps Script (GAS) で使うためのライブラリです。
 
 GAS のスクリプトサンプルを交えながら、ライブラリの使い方をご紹介します。
@@ -10,6 +12,7 @@ GAS のスクリプトサンプルを交えながら、ライブラリの使い�
 >   - [一般的な方法](#一般的な方法)
 >   - [`appsscript.json` に追記する方法](#appsscriptjson-に追記する方法)
 > - [使い方](#使い方)
+>   - [ポートレート API を呼び出す](#ポートレート-api-を呼び出す)
 >   - [API 呼び出しに必要な組織 ID の参照](#api-呼び出しに必要な組織-id-の参照)
 >     - [大学 ID の参照](#大学-id-の参照)
 >     - [学部・研究科等組織 ID の参照](#学部研究科等組織-id-の参照)
@@ -20,32 +23,13 @@ GAS のスクリプトサンプルを交えながら、ライブラリの使い�
 
 ## ライブラリを自分のスクリプトに追加する
 
-### 一般的な方法
-
 1. GAS スクリプトエディターの編集画面左側にある「ライブラリ」の「＋」をクリック。
 2. スクリプト ID `1463IXI3rMb1b76Iwbm-jhuAiondvoDESz0FRPrOvi817HuKNnNJcfYhg` を入力して「検索」
 3. 最新のバージョンを選んで「追加」。ここでデフォルトで `Portraits` となっている ID が、スクリプト内でライブラリ呼び出しに使うものです。任意の文字列でいいですが、以下の説明は `Portraits` としてあります。
 
-### `appsscript.json` に追記する方法
-
-```json
-{
-  ...
-  "dependencies": {
-    "libraries": [
-      {
-        "userSymbol": "Portraits",
-        "version": "5", // ここでバージョンを指定する。
-        "libraryId": "1463IXI3rMb1b76Iwbm-jhuAiondvoDESz0FRPrOvi817HuKNnNJcfYhg",
-        "developmentMode": false
-      }
-    ]
-  },
-  ...
-}
-```
-
 ## 使い方
+
+### ポートレート API を呼び出す
 
 [API の仕様](https://api-portal.portraits.niad.ac.jp/api-info.html)で定められた各エンドポイントが、そのままメソッドとして使えるようになっています。
 
@@ -54,7 +38,7 @@ GAS のスクリプトサンプルを交えながら、ライブラリの使い�
 const sf = Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
 ```
 
-使用できるメソッドの網羅的なリストは[レファレンス](reference.md)をご覧ください。
+使用できるメソッドの網羅的なリストは[レファレンス](REFERENCE.md)をご覧ください。
 
 ### API 呼び出しに必要な組織 ID の参照
 
@@ -64,7 +48,7 @@ const sf = Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
 
 #### 大学 ID の参照
 
-大学 ID は `getAllUnivIds()` や `getUnivIds(targetUnivNames: string[])` で参照できます。
+大学 ID は [`getAllUnivIds()`](REFERENCE.md#getallunivids) や [`getUnivIds(targetUnivNames)`](REFERENCE.md#getunividstargetunivnames) で参照できます。
 
 ```javascript
 const targetUnivName = '○○大学';
@@ -89,7 +73,7 @@ console.log(
 
 #### 学部・研究科等組織 ID の参照
 
-学部・研究科等組織 ID は `getAllOrganizationIds()` や `getOrganizationIdsbyUniv(targetYear: number, targetUnivNames: string[])` で参照でき、学部・研究科ごとに取りまとめられているデータの取得に使います。
+学部・研究科等組織 ID は [`getAllOrganizationIds()`](REFERENCE.md#getallorganizationids) や [`getOrganizationIdsbyUniv(targetYear, targetUnivNames)`](REFERENCE.md#getorganizationidsbyunivtargetyear-targetunivnames) で参照でき、学部・研究科ごとに取りまとめられているデータの取得に使います。
 
 ```javascript
 const oids = Portraits.getOrganizationIdsbyUniv(2021, ['○○大学', '▲▲大学']);
@@ -132,7 +116,7 @@ Object.keys(oids).forEach((univ) => {
 }
 ```
 
-`getOrganizationIdsbyUniv()` で個別に大学名を指定して取得する場合は、年度も合わせて指定します。戻り値は大学ごとに出力されます。
+[`getOrganizationIdsbyUniv(targetYear, targetUnivNames)`](REFERENCE.md#getorganizationidsbyunivtargetyear-targetunivnames) で個別に大学名を指定して取得する場合は、年度も合わせて指定します。戻り値は大学ごとに出力されます。
 
 ```json
 {
@@ -152,9 +136,9 @@ Object.keys(oids).forEach((univ) => {
 
 #### 外国人用組織 ID の参照
 
-外国人用組織 ID は `<大学ID>`-`<所属課程分類ID>` という文字列となっていて、ハイフン以降の後半部分である所属課程分類 ID を `getAllIntlIdSuffixes()` でまとめて取得したり、 `getIntlIds(targetUnivIds)` で、指定した大学 ID についての`<大学ID>`-`<所属課程分類ID>`の組み合わせ一式を配列として取得できます。外国人学生調査票の取得に使います。
+外国人用組織 ID は `<大学ID>`-`<所属課程分類ID>` という文字列となっていて、ハイフン以降の後半部分である所属課程分類 ID を [`getAllIntlIdSuffixes()`](REFERENCE.md#getallintlidsuffixes) でまとめて取得したり、 [`getIntlIds(targetUnivIds)`](REFERENCE.md#getintlidstargetunivids) で、指定した大学 ID についての`<大学ID>`-`<所属課程分類ID>`の組み合わせ一式を配列として取得できます。外国人学生調査票の取得に使います。
 
-`getAllIntlIdSuffixes()`の出力：
+[`getAllIntlIdSuffixes()`](REFERENCE.md#getallintlidsuffixes)の出力：
 
 ```json
 [
@@ -177,7 +161,7 @@ Object.keys(oids).forEach((univ) => {
 ]
 ```
 
-`getIntlIds()`は大学 ID の配列を受け取り、その配列の順序を保持したまま、大学ごとの外国人用組織 ID 一式を返します：
+[`getIntlIds(targetUnivIds)`](REFERENCE.md#getintlidstargetunivids) は大学 ID の配列を受け取り、その配列の順序を保持したまま、大学ごとの外国人用組織 ID 一式を返します：
 
 ```javascript
 Portraits.getIntlIds(['0000', '1111']);
@@ -194,7 +178,7 @@ Portraits.getIntlIds(['0000', '1111']);
 
 #### 全ての組織 ID を一度に取得する
 
-全ての種類の組織 ID を一度に取得する場合は `getAllIds()` を使います：
+全ての種類の組織 ID を一度に取得する場合は [`getAllIds()`](REFERENCE.md#getallids) を使います：
 
 ```javascript
 Portraits.getAllIds();

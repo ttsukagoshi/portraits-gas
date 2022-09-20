@@ -6,3 +6,9 @@ node_modules/
 
 # system
 .DS_Store
+
+# Jest
+coverage/
+
+# sample
+sample/
