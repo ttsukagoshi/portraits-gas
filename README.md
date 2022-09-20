@@ -1,5 +1,7 @@
 # Portraits-GAS
 
+[![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg?style=flat-square)](https://github.com/google/clasp) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![CodeQL](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/codeql-analysis.yml) [![Deploy](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/deploy.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/deploy.yml) [![Lint Code Base](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/linter.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/linter.yml) [![coverage](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/coverage.yml/badge.svg)](https://github.com/ttsukagoshi/portraits-gas/actions/workflows/coverage.yml)
+
 大学ポートレート Web-API https://api-portal.portraits.niad.ac.jp/ （以下「ポートレート API」）を Google Apps Script (GAS) で使うためのライブラリです。
 
 GAS のスクリプトサンプルを交えながら、ライブラリの使い方をご紹介します。
