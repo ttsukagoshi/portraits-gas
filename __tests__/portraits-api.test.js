@@ -10,6 +10,7 @@ const {
   getStatusAfterGraduationGraduates,
   getStatusAfterGraduationJobs,
   getSchoolFacilities,
+  verifyAccessKey_,
 } = require('../src/portraits');
 
 const testParams = {
@@ -136,4 +137,18 @@ patterns.forEach((pattern) => {
       )
     ).toEqual(pattern.expectedOutput);
   });
+});
+
+//////////////////
+// 例外処理の確認 //
+//////////////////
+
+test('verifyAccessKey_ with invalid access key', () => {
+  expect(() => {
+    verifyAccessKey_('http://invalid.access.key/');
+  }).toThrowError(
+    new RangeError(
+      '[ERROR] 引数として渡されたアクセスキーが所定の形式でないようです。入力値をご確認ください。'
+    )
+  );
 });
