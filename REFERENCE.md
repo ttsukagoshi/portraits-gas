@@ -86,7 +86,7 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
                   "GAKUSEI_SU": [
                     {
                       "GAKUSEI_SU": "1722",
-                      "GAKUSEI_TYPE": "博士課程", // 学生種別
+                      "GAKUSEI_TYPE": "博士課程", // 学生種別。「博士課程」「修士課程」「専門職学位課程」「学部・本科」「専攻科」「別科」「科目等履修生・聴講生・研究生 学部卒以上」「科目等履修生・聴講生・研究生 左記以外」
                       "GAKUSEI_SEX": "男" // 男女
                     },
                     ...
