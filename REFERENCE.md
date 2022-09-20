@@ -15,7 +15,7 @@
 > - [`getStatusAfterGraduationJobs(accessKey, year, orgId)`](#getstatusaftergraduationjobsaccesskey-year-orgid)
 > - [`getSchoolFacilities(accessKey, year, univId)`](#getschoolfacilitiesaccesskey-year-univid)
 >
-> ### API 呼び出しに必要な組織 ID の参照
+> ### API 呼び出しに必要な組織 ID を参照する
 >
 > - [`getAllIds()`](#getallids)
 > - [`getAllUnivIds()`](#getallunivids)
@@ -47,7 +47,7 @@
 
 ```javascript
 // 大学IDとして「0000」が存在すると仮定すると
-getStudentFacultyStatus(accessKey, 2021, '0000');
+Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
 ```
 
 戻り値は次のような形式となっている：
@@ -233,8 +233,6 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
 }
 ```
 
-各 key の詳細は公式ドキュメントを参照: https://api-portal.portraits.niad.ac.jp/api-info.html
-
 ### `getCollegeUndergraduateStudentsDetail(accessKey, year, orgId)`
 
 学部学生内訳票 API 情報取得
@@ -255,7 +253,11 @@ getStudentFacultyStatus(accessKey, 2021, '0000');
 
 ```javascript
 // 組織IDとして「0000-01-01-1G00-00-1」が存在すると仮定すると
-getCollegeUndergraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
+Portraits.getCollegeUndergraduateStudentsDetail(
+  accessKey,
+  2021,
+  '0000-01-01-1G00-00-1'
+);
 ```
 
 戻り値は次のような形式となっている：
@@ -421,8 +423,6 @@ getCollegeUndergraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
 }
 ```
 
-各 key の詳細は公式ドキュメントを参照: https://api-portal.portraits.niad.ac.jp/api-info.html
-
 ### `getGraduateStudentsDetail(accessKey, year, orgId)`
 
 大学院学生内訳票 API 情報取得
@@ -443,7 +443,7 @@ getCollegeUndergraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
 
 ```javascript
 // 組織IDとして「0000-01-01-1G00-00-1」が存在すると仮定すると
-getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
+Portraits.getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
 ```
 
 戻り値は次のような形式となっている：
@@ -605,8 +605,6 @@ getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
 }
 ```
 
-各 key の詳細は公式ドキュメントを参照: https://api-portal.portraits.niad.ac.jp/api-info.html
-
 ### `getJuniorCollegeUndergraduateStudentsDetail(accessKey, year, univId)`
 
 本科学生内訳票 API 情報取得
@@ -627,7 +625,7 @@ getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
 
 ```javascript
 // 大学IDとして「4000」が存在すると仮定すると
-getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
+Portraits.getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
 ```
 
 戻り値は次のような形式となっている：
@@ -797,8 +795,6 @@ getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
 }
 ```
 
-各 key の詳細は公式ドキュメントを参照: https://api-portal.portraits.niad.ac.jp/api-info.html
-
 ### `getForeignStudent(accessKey, year, foreignId)`
 
 外国人学生調査票 API 情報取得
@@ -819,7 +815,7 @@ getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
 
 ```javascript
 // 外国人用組織IDとして「0000-1Z11」が存在すると仮定すると
-getForeignStudent(accessKey, 2021, '0000-1Z11');
+Portraits.getForeignStudent(accessKey, 2021, '0000-1Z11');
 ```
 
 戻り値は次のような形式となっている：
@@ -916,8 +912,6 @@ getForeignStudent(accessKey, 2021, '0000-1Z11');
 }
 ```
 
-各 key の詳細は公式ドキュメントを参照: https://api-portal.portraits.niad.ac.jp/api-info.html
-
 ### `getStatusAfterGraduationGraduates(accessKey, year, orgId)`
 
 卒業後の状況調査票(2-1) API 情報取得
@@ -938,7 +932,11 @@ getForeignStudent(accessKey, 2021, '0000-1Z11');
 
 ```javascript
 // 組織IDとして「0000-00-00-1C00-00-1」が存在すると仮定すると
-getStatusAfterGraduationGraduates(accessKey, 2021, '0000-00-00-1C00-00-1');
+Portraits.getStatusAfterGraduationGraduates(
+  accessKey,
+  2021,
+  '0000-00-00-1C00-00-1'
+);
 ```
 
 戻り値は次のような形式となっている：
@@ -1083,7 +1081,7 @@ getStatusAfterGraduationGraduates(accessKey, 2021, '0000-00-00-1C00-00-1');
 
 ```javascript
 // 組織IDとして「0000-00-00-1C00-00-1」が存在すると仮定すると
-getStatusAfterGraduationJobs(accessKey, 2021, '0000-00-00-1C00-00-1');
+Portraits.getStatusAfterGraduationJobs(accessKey, 2021, '0000-00-00-1C00-00-1');
 ```
 
 戻り値は次のような形式となっている：
@@ -1281,7 +1279,7 @@ getStatusAfterGraduationJobs(accessKey, 2021, '0000-00-00-1C00-00-1');
 
 ```javascript
 // 大学IDとして「0000」が存在すると仮定すると
-getSchoolFacilities(accessKey, 2021, '0000');
+Portraits.getSchoolFacilities(accessKey, 2021, '0000');
 ```
 
 戻り値は次のような形式となっている：
@@ -1419,9 +1417,7 @@ getSchoolFacilities(accessKey, 2021, '0000');
 }
 ```
 
-各 key の詳細は公式ドキュメントを参照: https://api-portal.portraits.niad.ac.jp/api-info.html
-
-## API 呼び出しに必要な組織 ID の参照
+## API 呼び出しに必要な組織 ID を参照する
 
 ### `getAllIds()`
 
