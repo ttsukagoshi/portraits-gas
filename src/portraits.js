@@ -36,7 +36,9 @@ if (!PropertiesService) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getStudentFacultyStatus(accessKey, year, univId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${univId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${univId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -53,7 +55,9 @@ function getStudentFacultyStatus(accessKey, year, univId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getCollegeUndergraduateStudentsDetail(accessKey, year, orgId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${orgId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -70,7 +74,9 @@ function getCollegeUndergraduateStudentsDetail(accessKey, year, orgId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getGraduateStudentsDetail(accessKey, year, orgId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${orgId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -87,7 +93,9 @@ function getGraduateStudentsDetail(accessKey, year, orgId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getJuniorCollegeUndergraduateStudentsDetail(accessKey, year, univId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${univId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${univId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -104,7 +112,9 @@ function getJuniorCollegeUndergraduateStudentsDetail(accessKey, year, univId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getForeignStudent(accessKey, year, foreignId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${foreignId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${foreignId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -121,7 +131,9 @@ function getForeignStudent(accessKey, year, foreignId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getStatusAfterGraduationGraduates(accessKey, year, orgId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${orgId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -138,7 +150,9 @@ function getStatusAfterGraduationGraduates(accessKey, year, orgId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getStatusAfterGraduationJobs(accessKey, year, orgId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${orgId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -155,7 +169,9 @@ function getStatusAfterGraduationJobs(accessKey, year, orgId) {
  * @see https://api-portal.portraits.niad.ac.jp/api-info.html
  */
 function getSchoolFacilities(accessKey, year, univId) {
-  const params = `accesskey=${accessKey}&year=${year}&orgid=${univId}`;
+  const params = `accesskey=${verifyAccessKey_(
+    accessKey
+  )}&year=${year}&orgid=${univId}`;
   const url =
     API_BASE_URL +
     API_VERSION +
@@ -293,6 +309,21 @@ function verifyUnivNamesIds_(univNamesIds) {
   return univNamesIds;
 }
 
+/**
+ * 引数として渡したポートレートAPIのアクセスキーを検証。問題がなければ、入力値をそのまま出力する。
+ * @param {string} accessKey ポートレートAPIのアクセスキー
+ * @returns {string} 入力したアクセスキー
+ * @private
+ */
+function verifyAccessKey_(accessKey) {
+  if (!accessKey.match(/^[^:/@]+?$/)) {
+    throw new RangeError(
+      '[ERROR] 引数として渡されたアクセスキーが所定の形式でないようです。入力値をご確認ください。'
+    );
+  }
+  return accessKey;
+}
+
 if (typeof module === 'object') {
   module.exports = {
     getStudentFacultyStatus,
@@ -311,5 +342,6 @@ if (typeof module === 'object') {
     getAllOrganizationIds,
     getOrganizationIdsbyUniv,
     verifyUnivNamesIds_,
+    verifyAccessKey_,
   };
 }
