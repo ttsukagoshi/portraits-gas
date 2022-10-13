@@ -60,7 +60,7 @@ console.log(
 
 `UNIV_ID` と `UNIV_NAME` をキーとした、以下のようなオブジェクトの配列が返ってきます：
 
-```json
+```jsonc
 [
   {
     "UNIV_ID": "0000", // 大学ID
@@ -88,7 +88,7 @@ Object.keys(oids).forEach((univ) => {
 
 学部・研究科等組織 ID は、学部新設などを考慮して年度ごとに定義されているようです。
 
-```json
+```jsonc
 {
   "2021": {
     "○○大学": [
@@ -106,17 +106,17 @@ Object.keys(oids).forEach((univ) => {
         "CTG": "修士課程",
         "DN": "昼間"
       },
-      ...
+      // ...
     ],
-    ...
+    // ...
   },
-  ...
+  // ...
 }
 ```
 
 [`getOrganizationIdsbyUniv(targetYear, targetUnivNames)`](REFERENCE.md#getorganizationidsbyunivtargetyear-targetunivnames) で個別に大学名を指定して取得する場合は、年度も合わせて指定します。戻り値は大学ごとに出力されます。
 
-```json
+```jsonc
 {
   "○○大学": [
     {
@@ -126,9 +126,9 @@ Object.keys(oids).forEach((univ) => {
       "CTG": "",
       "DN": "昼間"
     },
-    ...
+    // ...
   ],
-  ...
+  // ...
 }
 ```
 
@@ -138,7 +138,7 @@ Object.keys(oids).forEach((univ) => {
 
 [`getAllIntlIdSuffixes()`](REFERENCE.md#getallintlidsuffixes)の出力：
 
-```json
+```jsonc
 [
   {
     "INTL_ID_SUFFIX": "-1Z11",
@@ -167,7 +167,7 @@ Portraits.getIntlIds(['0000', '1111']);
 
 の出力は
 
-```json
+```jsonc
 [
   ["0000-1Z11", "0000-1Z33", "0000-1Z44", "0000-1Z55"], // 大学ID「0000」の外国人用組織ID一式
   ["1111-1Z11", "1111-1Z33", "1111-1Z44", "1111-1Z55"] // 大学ID「1111」の外国人用組織ID一式
@@ -184,18 +184,18 @@ Portraits.getAllIds();
 
 出力は、全ての組織 ID のオブジェクトです：
 
-```json
+```jsonc
 {
   "univIds": [
     { "UNIV_ID": "0000", "UNIV_NAME": "○○大学" },
-    ...
+    // ...
   ],
   "intlIdSuffixes": [
     {
       "INTL_ID_SUFFIX": "-1Z11",
       "INTL_CATEGORY": "大学学部、短期大学本科（外国人学生調査票用）"
     },
-    ...
+    // ...
   ],
   "organizationIds": {
     "2021": {
@@ -214,11 +214,11 @@ Portraits.getAllIds();
           "CTG": "修士課程",
           "DN": "昼間"
         },
-        ...
+        // ...
       ],
-      ...
+      // ...
     },
-    ...
+    // ...
   }
 }
 ```
@@ -227,7 +227,7 @@ Portraits.getAllIds();
 
 [公式ドキュメント](https://api-portal.portraits.niad.ac.jp/api-info.html)では明記されていませんが、API に対してリクエストを送ったときに、そのリクエストに該当するデータが存在しない場合、戻り値は次のようになります。
 
-```json
+```jsonc
 {
   "GET_STATUS_LIST": {
     "RESULT": {
