@@ -52,7 +52,7 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
 
 戻り値は次のような形式となっている：
 
-```json
+```jsonc
 {
   "GET_STATUS_LIST": {
     "RESULT": {
@@ -91,10 +91,10 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                       "GAKUSEI_TYPE": "博士課程", // 学生種別。「博士課程」「修士課程」「専門職学位課程」「学部・本科」「専攻科」「別科」「科目等履修生・聴講生・研究生 学部卒以上」「科目等履修生・聴講生・研究生 左記以外」
                       "GAKUSEI_SEX": "男" // 男女
                     },
-                    ...
+                    // ...
                   ]
                 },
-                ... // 夜間についての同様のオブジェクト
+                // ... 夜間についての同様のオブジェクト
               ]
             },
             "KYOIN_SU_HOMMUSHA": {
@@ -115,7 +115,7 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                       "KYOIN_SHOKUNA": "学長", // 学長、副学長
                       "KYOIN_SEX": "女" // 男女
                     },
-                    ...
+                    // ...
                   ]
                 }
               ],
@@ -135,10 +135,10 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                       "KYOIN_SHOKUNA": "教授", // 教授、准教授、助教、助手、講師
                       "KYOIN_SEX": "男" // 男女
                     },
-                    ...
+                    // ...
                   ]
                 },
-                ...
+                // ...
               ],
               "KEI": [
                 // 教員数（本務）合計
@@ -156,7 +156,7 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                       "KYOIN_SHOKUNA": "学長", // 学長、副学長、教授、准教授、助教、助手、講師
                       "KYOIN_SEX": "女" // 男女
                     },
-                    ...
+                    // ...
                   ]
                 }
               ]
@@ -179,10 +179,10 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                         "KYOIN_SHOKUNA": "教授", // 教授、准教授、助教、助手、講師
                         "KYOIN_SEX": "男" // 男女
                       },
-                      ...
+                      // ...
                     ]
                   },
-                  ...
+                  // ...
                 ]
               }
             ],
@@ -200,7 +200,7 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                     "KYOIN_BUNRUI": "学長", // 兼務者分類（学長、副学長、教員からの兼務、教員以外からの兼務）
                     "KYOIN_SEX": "女" // 男女
                   },
-                  ...
+                  // ...
                 ]
               }
             ],
@@ -216,7 +216,7 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                     "KYOIN_TYPE": "兼務",
                     "KYOIN_SEX": "男" // 男女
                   },
-                  ... // 「女」についての同様のオブジェクト
+                  // ... 「女」についての同様のオブジェクト
                 ]
               }
             ],
@@ -236,10 +236,10 @@ Portraits.getStudentFacultyStatus(accessKey, 2021, '0000');
                     "SHOKUIN_KANGO_TYPE": "", // 看護師の場合は「附属病院」「学生の健康管理」
                     "SHOKUIN_SEX": "女" // 男女
                   },
-                  ...
+                  // ...
                 ]
               },
-              ... //（もう1項目、兼務者についての一式オブジェクト）
+              // ... （もう1項目、兼務者についての一式オブジェクト）
             ],
             "GAKKO_KIHON": { "GAKKO_CHOSA_CD": "0000", "SHOZAICHI_CD": "00" }
           }
@@ -279,7 +279,7 @@ Portraits.getCollegeUndergraduateStudentsDetail(
 
 戻り値は次のような形式となっている：
 
-```json
+```jsonc
 {
   "GET_STATUS_LIST": {
     "RESULT": {
@@ -318,25 +318,25 @@ Portraits.getCollegeUndergraduateStudentsDetail(
                       "GAKUSEI_NENJI": "1年次", // 1〜6年次（4年制の学科では5・6年次の学生数が空白「""」）
                       "GAKUSEI_SEX": "男" // 男女
                     },
-                    ...
+                    // ...
                   ],
                   "NYUGAKU_SHIGANSHA_SU": [ // この学科の当該年度における入学志願者数を男女別で格納
                     {
                       "NYUGAKU_GAKKA_NYUGAKU_SHIGANSHA_SU": "405",
                       "NYUGAKU_SEX": "女" // 男女
                     },
-                    ...
+                    // ...
                   ],
                   "NYUGAKUSHA_SU": [ // この学科の当該年度における入学者数を男女別で格納
                     {
                       "NYUGAKUSHA_GAKKA_NYUGAKUSHA_SU": "115",
                       "NYUGAKUSHA_SEX": "男" // 男女
                     },
-                    ...
+                    // ...
                   ]
                 }
               },
-              ...,
+              // ...
             ],
             "GAKKA_KYUGAKUSHA_SU": { // 休学者数（GAKKA_GAKUSEI_SUの内数。ここは学科別ではなく、学部全体での合計値）
               "GAKUSEI_SU_KEI_M": "24",
@@ -347,7 +347,7 @@ Portraits.getCollegeUndergraduateStudentsDetail(
                   "GAKUSEI_NENJI": "1年次", // 1〜6年次
                   "GAKUSEI_SEX": "女" // 男女
                 },
-                ...
+                // ...
               ]
             },
             "MIN_NENGEN_CHOKA_GAKUSEI_SU": { // 最低在学年限超過学生数（GAKKA_GAKUSEI_SUの内数。ここも学科別ではなく、学部全体での合計値）
@@ -360,7 +360,7 @@ Portraits.getCollegeUndergraduateStudentsDetail(
                   "GAKUSEI_NENDO": "2017", // 入学年度（配列は、年度が降順）。公式ドキュメントでは「入学年度(相対)を返却する」とあるが、実際に返ってくるのは西暦4桁の絶対値
                   "GAKUSEI_SEX": "男" // 男女
                 },
-                ...
+                // ...
               ]
             },
             "SHUSSHIN_KOKO_ADDR_KEN_NYUGAKUSHA_SU": { // 出身高校の所在地県別入学者数
@@ -372,7 +372,7 @@ Portraits.getCollegeUndergraduateStudentsDetail(
                   "NYUGAKUSHA_TODOFUKEN": "北海道", // 47都道府県名および「その他」。都府県名末尾に「都」「府」「県」はつかない（例：青森県→「青森」）
                   "NYUGAKUSHA_SEX": "女" // 男女
                 },
-                ...
+                // ...
               ]
             },
             "NENREIBETSU_NYUGAKUSHA_SU": { // 年齢別入学者数
@@ -384,7 +384,7 @@ Portraits.getCollegeUndergraduateStudentsDetail(
                   "NYUGAKUSHA_NENREI_KBN": "17歳以下", // 「17歳以下」「18歳」「19歳」...「29歳」「30～34歳」「35～39歳」...「65歳以上」
                   "NYUGAKUSHA_SEX": "男" // 男女
                 },
-                ...
+                // ...
               ],
               "NYUGAKUSHA_SU_UCHI": [ // 出身高校の所在地県が「その他」の入学者の学歴別・男女別内訳
                 // SHUSSHIN_KOKO_ADDR_KEN_NYUGAKUSHA_SU.NYUGAKUSHA_SU.filter((enrollees) => enrollees.NYUGAKUSHA_TODOFUKEN === "その他")
@@ -393,11 +393,11 @@ Portraits.getCollegeUndergraduateStudentsDetail(
                   "NYUGAKUSHA_GAKUREKI_TYPE": "外国の学校卒", // 「外国の学校卒」「専修学校高等課程卒」「その他(高卒認定等)」のいずれか
                   "NYUGAKUSHA_SEX": "女" // 男女
                 },
-                ...
+                // ...
               ],
               "NYUGAKUSHA_SU_RYUGAKUSEI_SU": [ // 入学者数のうち留学生数
                 { "NYUGAKUSHA_RYUGAKUSEI_SU": "19", "NYUGAKUSHA_SEX": "男" }, // 男女
-                ... // 男女で同様のオブジェクトがもう1点
+                // ... 男女で同様のオブジェクトがもう1点
               ]
             },
             "SENKOKA_KAMOKU_RISHUSEI_GAKUSEI_SU": { // 専攻科・別科及び科目等履修生等の学生数
@@ -410,7 +410,7 @@ Portraits.getCollegeUndergraduateStudentsDetail(
                   "GAKUSEI_TYPE": "専攻科", // 学生種別「専攻科」「別科」「学部卒以上」「左記以外」
                   "GAKUSEI_SEX": "女" // 男女
                 },
-                ...
+                // ...
               ]
             },
             "TANKI_KOTO_SENSHU_SENKOKA_HENNYU_GAKUSHA_SU": { // 短期大学・高等専門学校・専修学校(専門課程)・高等学校等専攻科からの編入学者数
@@ -424,7 +424,7 @@ Portraits.getCollegeUndergraduateStudentsDetail(
                   "GAKUSEI_NYUGAKU_NENJI": "2年次", // 入学年次
                   "GAKUSEI_SEX": "男" // 男女
                 },
-                ...
+                // ...
               ]
             },
             "GAKKO_KIHON_INFO": {
@@ -465,7 +465,7 @@ Portraits.getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
 
 戻り値は次のような形式となっている：
 
-```json
+```jsonc
 {
   "GET_STATUS_LIST": {
     "RESULT": {
@@ -507,14 +507,14 @@ Portraits.getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
                       "GAKUSEI_NENJI": "1年次", // 1〜5年次（該当なしの場合は学生数が空白「""」）
                       "GAKUSEI_SEX": "男" // 男女
                     },
-                    ...
+                    // ...
                   ],
                   "SHAKAIJIN_GAKUSEI_SU": [ // 社会人学生数（男女別）
                     { "SHAKAIJIN_GAKUSEI_SU": "6", "SHAKAIJIN_SEX": "女" }, // 男女
-                    ...
+                    // ...
                   ]
                 },
-                ...
+                // ...
               ]
             },
             "SENKO_GAKUSEI_KYUGAKUSHA_SU": { // 専攻別学生のうち休学者数
@@ -527,7 +527,7 @@ Portraits.getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
                   "GAKUSEI_NENJI": "1年次", // 1〜5年次（該当なしの場合は学生数が空白「""」）
                   "GAKUSEI_SEX": "男" // 男女
                 },
-                ...
+                // ...
               ]
             },
             "MIN_NENGEN_CHOKA_GAKUSEI_SU": { // 最低在学年限超過学生数
@@ -540,7 +540,7 @@ Portraits.getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
                   "GAKUSEI_NENDO": "2019", // 入学年度（配列は、年度が降順）。公式ドキュメントでは「入学年度(相対)を返却する」とあるが、実際に返ってくるのは西暦4桁の絶対値
                   "GAKUSEI_SEX": "女" // 男女
                 },
-                ...
+                // ...
               ]
             },
             "NYUGAKU_JOKYO": { // 入学状況
@@ -558,7 +558,7 @@ Portraits.getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
                       "NYUGAKU_SHUSSHIN_GAKKO": "当該大学出身者", // 出身学校の種類「当該大学出身者」「国立」「公立」「私立」「外国の学校卒」「その他」
                       "NYUGAKU_SEX": "男" // 男女
                     },
-                    ...
+                    // ...
                   ],
                   "NYUGAKUSHA_SU": [ // 出身学校の種別・男女別の入学者数内訳
                     {
@@ -566,10 +566,10 @@ Portraits.getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
                       "NYUGAKUSHA_SHUSSHIN_GAKKO": "当該大学出身者", // 出身学校の種類「当該大学出身者」「国立」「公立」「私立」「外国の学校卒」「その他」
                       "NYUGAKUSHA_SEX": "女" // 男女
                     },
-                    ...
+                    // ...
                   ]
                 },
-                ...
+                // ...
               ]
             },
             "NENREIBETSU_NYUGAKUSHA_SU": { // 年齢別入学者数
@@ -582,18 +582,18 @@ Portraits.getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
                   "NYUGAKUSHA_ZENREKI": "",
                   "NYUGAKUSHA_SEX": "男" // 男女
                 },
-                ...
+                // ...
               ],
               "NYUGAKUSHA_SHAKAIJIN_GAKUSEI_SU": [ // 入学者数のうち社会人学生数（男女）
                 {
                   "NYUGAKUSHA_SHAKAIJIN_GAKUSEI_SU": "2",
                   "NYUGAKUSHA_SEX": "女" // 男女
                 },
-                ...
+                // ...
               ],
               "NYUGAKUSHA_SU_RYUGAKUSEI_SU": [ // 入学者数のうち留学生数（男女）
                 { "NYUGAKUSHA_SU_RYUGAKUSEI_SU": "", "NYUGAKUSHA_SEX": "男" }, // 男女
-                ...
+                // ...
               ]
             },
             "KAMOKUTO_RISHUSEI_GAKUSEI_SU": { // 科目等履修生の学生数
@@ -606,7 +606,7 @@ Portraits.getGraduateStudentsDetail(accessKey, 2021, '0000-01-01-1G00-00-1');
                   "NYUGAKUSHA_NENREI_KBN": "学部卒以上", // 「学部卒以上」「左 記 以 外」
                   "NYUGAKUSHA_SEX": "男" // 男女
                 },
-                ...
+                // ...
               ]
             },
             "KIHON_INFO": {
@@ -647,7 +647,7 @@ Portraits.getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
 
 戻り値は次のような形式となっている：
 
-```json
+```jsonc
 {
   "GET_STATUS_LIST": {
     "RESULT": {
@@ -685,18 +685,18 @@ Portraits.getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
                       "GAKUSEI_NENJI": "1年次", // 1〜3年次
                       "GAKUSEI_SEX": "女" // 男女
                     },
-                    ...
+                    // ...
                   ],
                   "NYUGAKU_SHIGANSHA_SU": [ // 入学志願者数
                     { "NYUGAKU_SHIGANSHA_SU": "79", "NYUGAKU_SEX": "女" }, // 男女
-                    ...
+                    // ...
                   ],
                   "NYUGAKUSHA_SU": [ // 入学者数
                     { "NYUGAKUSHA_SU": "", "NYUGAKUSHA_SEX": "男" }, // 男女
-                    ...
+                    // ...
                   ]
                 },
-                ...
+                // ...
               ],
               "GAKKA_GAKUSEI_KYUGAKUSHA_SU": [ // 学生のうち休学者数
                 {
@@ -708,13 +708,13 @@ Portraits.getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
                       "GAKUSEI_NENJI": "1年次", // 1〜3年次
                       "GAKUSEI_SEX": "女" // 男女
                     },
-                    ...
+                    // ...
                   ]
                 }
               ]
             },
             "CHUYA_KBN_YAKAN": { // 夜間の課程
-              ... // 昼間　(CHUYA_KBN_HIRU) と同じデータ構造
+              // ... 昼間　(CHUYA_KBN_HIRU) と同じデータ構造
             },
             "SHUSSHIN_KOKO_ADDR_KEN_NYUGAKUSHA_SU": [ // 出身高校の所在地県別入学者数
               {
@@ -726,7 +726,7 @@ Portraits.getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
                     "NYUGAKUSHA_TODOFUKEN": "北海道", // 47都道府県名および「その他」。都府県名末尾に「都」「府」「県」はつかない（例：青森県→「青森」）
                     "NYUGAKUSHA_SEX": "男" // 男女
                   },
-                  ...
+                  // ...
                 ]
               }
             ],
@@ -739,7 +739,7 @@ Portraits.getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
                   "NYUGAKUSHA_NENREI_KBN": "17歳以下", // 「17歳以下」「18歳」「19歳」...「29歳」「30～34歳」「35～39歳」...「65歳以上」
                   "NYUGAKUSHA_SEX": "女" // 男女
                 },
-                ...
+                // ...
               ],
               "NYUGAKUSHA_SU_UCHI": [ // 出身高校の所在地県が「その他」の入学者の学歴別・男女別内訳
                 // SHUSSHIN_KOKO_ADDR_KEN_NYUGAKUSHA_SU.NYUGAKUSHA_SU.filter((enrollees) => enrollees.NYUGAKUSHA_TODOFUKEN === "その他")
@@ -748,15 +748,15 @@ Portraits.getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
                   "NYUGAKUSHA_GAKUREKI_TYPE": "外国の学校卒", // 「外国の学校卒」「専修学校高等課程卒」「その他(高卒認定等)」の3パターン
                   "NYUGAKUSHA_SEX": "男" // 男女
                 },
-                ...
+                // ...
               ],
               "NYUGAKUSHA_RYUGAKUSEI_SU": [ // 入学者数のうち留学生数
                 { "NYUGAKUSHA_SU_RYUGAKUSEI_SU": "", "NYUGAKUSHA_SEX": "女" }, // 男女
-                ...
+                // ...
               ]
             },
             "NENREI_NYUGAKUSHA_SU_YAKAN": { // 年齢別入学者数（夜間）
-              ... // 年齢別入学者数（昼間）(NENREI_NYUGAKUSHA_SU_HIRUMA) と同じデータ構造
+              // ... 年齢別入学者数（昼間）(NENREI_NYUGAKUSHA_SU_HIRUMA) と同じデータ構造
             },
             "SENKOKA_KAMOKU_RISHUSEI_GAKUSEI_SU": { // 専攻科・別科及び科目等履修生等の学生数
               "CHUYA_KBN_HIRU": { // 昼間の課程
@@ -770,11 +770,11 @@ Portraits.getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
                     "GAKUSEI_TYPE": "専攻科", // 学生種別「専攻科」「別科」「学部卒以上」「左記以外」
                     "GAKUSEI_SEX": "男" // 男女
                   },
-                  ...
+                  // ...
                 ]
               },
               "CHUYA_KBN_YAKAN": {
-                ... // 昼間　(CHUYA_KBN_HIRU) と同じデータ構造
+                // ... 昼間　(CHUYA_KBN_HIRU) と同じデータ構造
               }
             },
             "KOTO_SENKOKA_HENNYUGAKUSHA_SU": { // 高等学校等専攻科からの編入学者数
@@ -791,13 +791,13 @@ Portraits.getJuniorCollegeUndergraduateStudentsDetail(accessKey, 2021, '4000');
                       "GAKUSEI_NENJI": "2年次", // 入学年次（2年次または3年次）
                       "GAKUSEI_SEX": "女" // 男女
                     },
-                    ...
+                    // ...
                   ]
                 },
-                ...
+                // ...
               ],
               "CHUYA_KBN_YAKAN": [
-                ... // 昼間　(CHUYA_KBN_HIRU) と同じデータ構造
+                // ... 昼間　(CHUYA_KBN_HIRU) と同じデータ構造
               ]
             },
             "GAKKO_KIHON_INFO": {
@@ -837,7 +837,7 @@ Portraits.getForeignStudent(accessKey, 2021, '0000-1Z11');
 
 戻り値は次のような形式となっている：
 
-```json
+```jsonc
 {
   "GET_STATUS_LIST": {
     "RESULT": {
@@ -887,10 +887,10 @@ Portraits.getForeignStudent(accessKey, 2021, '0000-1Z11');
                           "KUNI_HONKA_IGAI": "", // 学生区分名が本科以外であれば「本科以外」、本科であれば空白「""」
                           "KUNI_SEX": "男" // 男女
                         },
-                        ...
+                        // ...
                       ]
                     },
-                    ...
+                    // ...
                   ]
                 },
                 "GAKUMON_KOKUBETSU_BEKKEI2": {
@@ -908,14 +908,14 @@ Portraits.getForeignStudent(accessKey, 2021, '0000-1Z11');
                           "GAKUSEI_GAKUMON_BUNYA": "人文科学", // GAKUMON_KOKUBETSUにおけるKUNI_GAKUMON_BUNYAと同じ分類
                           "GAKUSEI_SEX": "女" // 男女
                         },
-                        ...
+                        // ...
                       ]
                     },
-                    ... // KUNI_MEI「別掲2_科目等履修生・聴講生・研究生」の同様のオブジェクトがもう1式
+                    // ... KUNI_MEI「別掲2_科目等履修生・聴講生・研究生」の同様のオブジェクトがもう1式
                   ]
                 }
               },
-              ... // RYUGAKUSEI_MEIが「私費留学生」及び「留学生以外の外国人学生」の同様のオブジェクトが各1式
+              // ... RYUGAKUSEI_MEIが「私費留学生」及び「留学生以外の外国人学生」の同様のオブジェクトが各1式
             ],
             "GAKKO_KIHON_INFO": {
               "GAKKO_CHOSA_CD": "0000",
@@ -958,7 +958,7 @@ Portraits.getStatusAfterGraduationGraduates(
 
 戻り値は次のような形式となっている：
 
-```json
+```jsonc
 {
   "GET_STATUS_LIST": {
     "RESULT": {
@@ -1002,7 +1002,7 @@ Portraits.getStatusAfterGraduationGraduates(
                         "SOTSUGYOSHA_SHINRO_BUNRUI": "A大学院研究科", // 進路分類。学校基本調査「卒業後の状況調査票2-1」の様式にある分類に準じる（※1）
                         "SOTSUGYOSHA_SEX": "男" // 男女
                       },
-                      ...
+                      // ...
                     ]
                   }
                 ],
@@ -1015,7 +1015,7 @@ Portraits.getStatusAfterGraduationGraduates(
                       "SHURYOSHA_SEX": "女" // 男女
                     }
                   },
-                  ...
+                  // ...
                 ],
                 "NYUGAKU_NENDO_SOTSUGYOSHA_SU": [
                   // 入学年度別卒業者数
@@ -1029,12 +1029,12 @@ Portraits.getStatusAfterGraduationGraduates(
                         "SOTSUGYOSHA_NENDO": "2017", // 入学年度。
                         "SOTSUGYOSHA_SEX": "男" // 男女
                       },
-                      ...
+                      // ...
                     ]
                   }
                 ]
               },
-              ... // 他学科についても同様
+              // ... 他学科についても同様
             ],
             "KIHON_INFO": {
               "KIHON_GAKKO_CHOSA_CD": "0000",
@@ -1103,7 +1103,7 @@ Portraits.getStatusAfterGraduationJobs(accessKey, 2021, '0000-00-00-1C00-00-1');
 
 戻り値は次のような形式となっている：
 
-```json
+```jsonc
 {
   "GET_STATUS_LIST": {
     "RESULT": {
@@ -1145,7 +1145,7 @@ Portraits.getStatusAfterGraduationJobs(accessKey, 2021, '0000-00-00-1C00-00-1');
                       "SHUSHOKUSHA_SHOKUGYO_BUNRUI": "b 専門的・技術的職業従事者／1 研究者", // 職業分類。学校基本調査「卒業後の状況調査票2-2」の様式にある分類に準じる（※2）
                       "SHUSHOKUSHA_SEX": "男" // 男女
                     },
-                    ...
+                    // ...
                   ]
                 },
                 "SANGYO_SHUSHOKUSHA_SU": {
@@ -1159,11 +1159,11 @@ Portraits.getStatusAfterGraduationJobs(accessKey, 2021, '0000-00-00-1C00-00-1');
                       "SHUSHOKUSHA_SANGYO_BUNRUI": "A 農業，林業", // 産業分類。学校基本調査「卒業後の状況調査票2-2」の様式にある分類に準じる（※3）
                       "SHUSHOKUSHA_SEX": "女" // 男女
                     },
-                    ...
+                    // ...
                   ]
                 }
               },
-              ...
+              // ...
             ],
             "KIHON_INFO": {
               "KIHON_GAKKO_CHOSA_CD": "0000",
@@ -1301,7 +1301,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
 
 戻り値は次のような形式となっている：
 
-```json
+```jsonc
 {
   "GET_STATUS_LIST": {
     "RESULT": {
@@ -1335,7 +1335,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
                     "AREA_YOTO": "校舎・講堂・体育施設敷地", // 用途。「校舎・講堂・体育施設敷地」「屋外運動場敷地」「附属病院敷地」「附置研究所敷地」「附属研究施設敷地」「寄宿舎施設」「その他」
                     "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
                   },
-                  ...
+                  // ...
                 ]
               }
             ],
@@ -1349,7 +1349,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
                     "AREA_YOTO": "校舎／講義室・演習室", // 用途。「校舎／講義室・演習室」「校舎／実験室・実習室」「校舎／研究室」「校舎／図書館」「校舎／管理関係・その他」「講堂」「体育施設」「附属病院」「附置研究所」「附置研究施設」「寄宿舎」「その他」「学校建物の用途別面積のうち厚生補導施設（再掲）」
                     "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
                   },
-                  ...
+                  // ...
                 ]
               }
             ],
@@ -1364,7 +1364,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
                     "AREA_KOZO": "木造", // 「木造」「鉄筋コンクリート造」「鉄骨造」「その他」
                     "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
                   },
-                  ...
+                  // ...
                 ]
               }
             ],
@@ -1379,7 +1379,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
                     "AREA_NENDO": "（2020年5月2日～2021年5月1日）", // 年度「（yyyy-1年5月2日～yyyy年5月1日）」（yyyyがデータ取得で指定した西暦4桁の年度）
                     "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
                   },
-                  ...
+                  // ...
                 ]
               }
             ],
@@ -1394,7 +1394,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
                     "AREA_NENDO": "（2020年5月2日～2021年5月1日）", // 年度「（yyyy-1年5月2日～yyyy年5月1日）」（yyyyがデータ取得で指定した西暦4桁の年度）
                     "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
                   },
-                  ...
+                  // ...
                 ]
               }
             ],
@@ -1412,7 +1412,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
                   "AREA_TANI": "㎡" // 面積の単位。固定値「㎡」（平方メートル）
                 }
               },
-              ...
+              // ...
             ],
             "SHOKUIN_SHUKUSHA_YOTO_TATEMONO_AREA": [
               // 職員宿舎の用途別建物面積
@@ -1423,7 +1423,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
                   "AREA_TANI": "㎡"// 面積の単位。固定値「㎡」（平方メートル）
                 }
               },
-              ...
+              // ...
             ],
             "GAKKO_KIHON_INFO": { "GAKKO_CHOSA_CD": "0000" }
           }
@@ -1444,18 +1444,18 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
 
 `Object`: 全ての組織 ID のオブジェクト
 
-```json
+```jsonc
 {
   "univIds": [
     { "UNIV_ID": "0000", "UNIV_NAME": "○○大学" },
-    ...
+    // ...
   ],
   "intlIdSuffixes": [
     {
       "INTL_ID_SUFFIX": "-1Z11",
       "INTL_CATEGORY": "大学学部、短期大学本科（外国人学生調査票用）"
     },
-    ...
+    // ...
   ],
   "organizationIds": {
     "2021": {
@@ -1474,11 +1474,11 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
           "CTG": "修士課程",
           "DN": "昼間"
         },
-        ...
+        // ...
       ],
-      ...
+      // ...
     },
-    ...
+    // ...
   }
 }
 ```
@@ -1493,7 +1493,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
 
 `Array`: 大学名（`UNIV_NAME`）と大学 ID（`UNIV_ID`）がセットになったオブジェクトの配列
 
-```json
+```jsonc
 [
   {
     "UNIV_ID": "0000", // 大学ID
@@ -1518,7 +1518,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
 
 `Array`: 指定した大学名について、大学名（`UNIV_NAME`）と大学 ID（`UNIV_ID`）がセットになったオブジェクトの配列
 
-```json
+```jsonc
 [
   {
     "UNIV_ID": "0000", // 大学ID
@@ -1537,7 +1537,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
 
 `Array`
 
-```json
+```jsonc
 [
   {
     "INTL_ID_SUFFIX": "-1Z11",
@@ -1574,7 +1574,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
 
 `Array`
 
-```json
+```jsonc
 [
   ["0000-1Z11", "0000-1Z33", "0000-1Z44", "0000-1Z55"], // 大学ID「0000」の外国人用組織ID一式
   ["1111-1Z11", "1111-1Z33", "1111-1Z44", "1111-1Z55"] // 大学ID「1111」の外国人用組織ID一式
@@ -1591,7 +1591,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
 
 `Object`
 
-```json
+```jsonc
 {
   "2021": {
     "○○大学": [
@@ -1609,11 +1609,11 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
         "CTG": "修士課程",
         "DN": "昼間"
       },
-      ...
+      // ...
     ],
-    ...
+    // ...
   },
-  ...
+  // ...
 }
 ```
 
@@ -1634,7 +1634,7 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
 
 `Object`
 
-```json
+```jsonc
 {
   "○○大学": [
     {
@@ -1644,9 +1644,9 @@ Portraits.getSchoolFacilities(accessKey, 2021, '0000');
       "CTG": "", // 分類
       "DN": "昼間" // 昼間 or 夜間
     },
-    ...
+    // ...
   ],
-  ...
+  // ...
 }
 ```
 
