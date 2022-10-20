@@ -316,12 +316,18 @@ function verifyUnivNamesIds_(univNamesIds) {
  * @private
  */
 function verifyAccessKey_(accessKey) {
-  if (!accessKey.match(/^[^:/@]+?$/)) {
+  if (!accessKey) {
+    throw new Error(
+      '[ERROR] アクセスキーが空白のままAPIを呼び出そうとしています。必ずポートレートAPIのアクセスキーを設定した上で、実行してください。'
+    );
+  }
+  if (accessKey.match(/^[^:/@]+?$/)) {
+    return accessKey;
+  } else {
     throw new RangeError(
       '[ERROR] 引数として渡されたアクセスキーが所定の形式でないようです。入力値をご確認ください。'
     );
   }
-  return accessKey;
 }
 
 if (typeof module === 'object') {
