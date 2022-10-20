@@ -152,3 +152,16 @@ test('verifyAccessKey_ with invalid access key', () => {
     )
   );
 });
+
+const nullishPatterns = [null, ''];
+nullishPatterns.forEach((pattern) => {
+  test(`verifyAccessKey_ with access key as '${pattern}'`, () => {
+    expect(() => {
+      verifyAccessKey_(pattern);
+    }).toThrowError(
+      new RangeError(
+        '[ERROR] アクセスキーが空白のままAPIを呼び出そうとしています。必ずポートレートAPIのアクセスキーを設定した上で、実行してください。'
+      )
+    );
+  });
+});
