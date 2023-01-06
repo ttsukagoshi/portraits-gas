@@ -1,6 +1,6 @@
 {
   "name": "portraits-gas",
-  "version": "v7",
+  "version": "v7.0.0",
   "description": "大学ポートレートWeb-APIをGoogle Apps Scriptで使うためのライブラリ",
   "main": "src/portraits.js",
   "scripts": {
