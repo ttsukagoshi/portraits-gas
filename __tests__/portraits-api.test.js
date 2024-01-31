@@ -11,6 +11,7 @@ const {
   getStatusAfterGraduationJobs,
   getSchoolFacilities,
   verifyAccessKey_,
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
 } = require('../src/portraits');
 
 const testParams = {
@@ -133,8 +134,8 @@ patterns.forEach((pattern) => {
       pattern.testFunc(
         pattern.input.accessKey,
         pattern.input.year,
-        pattern.input.orgId
-      )
+        pattern.input.orgId,
+      ),
     ).toEqual(pattern.expectedOutput);
   });
 });
@@ -148,8 +149,8 @@ test('verifyAccessKey_ with invalid access key', () => {
     verifyAccessKey_('http://invalid.access.key/');
   }).toThrowError(
     new RangeError(
-      '[ERROR] 引数として渡されたアクセスキーが所定の形式でないようです。入力値をご確認ください。'
-    )
+      '[ERROR] 引数として渡されたアクセスキーが所定の形式でないようです。入力値をご確認ください。',
+    ),
   );
 });
 
@@ -160,8 +161,8 @@ nullishPatterns.forEach((pattern) => {
       verifyAccessKey_(pattern);
     }).toThrowError(
       new RangeError(
-        '[ERROR] アクセスキーが空白のままAPIを呼び出そうとしています。必ずポートレートAPIのアクセスキーを設定した上で、実行してください。'
-      )
+        '[ERROR] アクセスキーが空白のままAPIを呼び出そうとしています。必ずポートレートAPIのアクセスキーを設定した上で、実行してください。',
+      ),
     );
   });
 });
