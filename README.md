@@ -53,8 +53,8 @@ const targetUnivName = '○○大学';
 const targetUnivId = Portraits.getUnivIds([targetUnivName])[0].UNIV_ID; // getUnivIds()が受け取るのは大学名の配列
 console.log(
   JSON.stringify(
-    Portraits.getStudentFacultyStatus(ACCESS_KEY, 2021, targetUnivId)
-  )
+    Portraits.getStudentFacultyStatus(ACCESS_KEY, 2021, targetUnivId),
+  ),
 );
 ```
 
@@ -66,9 +66,9 @@ console.log(
     "UNIV_ID": "0000", // 大学ID
     "UNIV_NAME": "○○大学", // 大学名
     "AY2021": "○", // ○がついていればこの大学のこの年度は対応している。
-    "AY2022": "○"
+    "AY2022": "○",
     // ...
-  }
+  },
 ]
 ```
 
@@ -100,19 +100,19 @@ Object.keys(oids).forEach((univ) => {
         "DEP": "○○学部", // 学部・研究科名
         "LOC": "○○", // 所在地
         "CTG": "", // 分類
-        "DN": "昼間" // 昼間 or 夜間
+        "DN": "昼間", // 昼間 or 夜間
       },
       {
         "OID": "0100-01-01-1Y68-01-1",
         "DEP": "○○研究科",
         "LOC": "○○",
         "CTG": "修士課程",
-        "DN": "昼間"
-      }
+        "DN": "昼間",
+      },
       // ...
-    ]
+    ],
     // ...
-  }
+  },
   // ...
 }
 ```
@@ -127,10 +127,10 @@ Object.keys(oids).forEach((univ) => {
       "DEP": "○○学部",
       "LOC": "○○",
       "CTG": "",
-      "DN": "昼間"
-    }
+      "DN": "昼間",
+    },
     // ...
-  ]
+  ],
   // ...
 }
 ```
@@ -145,20 +145,20 @@ Object.keys(oids).forEach((univ) => {
 [
   {
     "INTL_ID_SUFFIX": "-1Z11",
-    "INTL_CATEGORY": "大学学部、短期大学本科（外国人学生調査票用）"
+    "INTL_CATEGORY": "大学学部、短期大学本科（外国人学生調査票用）",
   },
   {
     "INTL_ID_SUFFIX": "-1Z33",
-    "INTL_CATEGORY": "修士課程、博士前期課程、一貫制博士課程の1～2年次（外国人学生調査票用）"
+    "INTL_CATEGORY": "修士課程、博士前期課程、一貫制博士課程の1～2年次（外国人学生調査票用）",
   },
   {
     "INTL_ID_SUFFIX": "-1Z44",
-    "INTL_CATEGORY": "博士後期課程、一貫制博士課程の3～5年次、\n医歯学・薬学・獣医学関係の一貫制博士課程（外国人学生調査票用）"
+    "INTL_CATEGORY": "博士後期課程、一貫制博士課程の3～5年次、\n医歯学・薬学・獣医学関係の一貫制博士課程（外国人学生調査票用）",
   },
   {
     "INTL_ID_SUFFIX": "-1Z55",
-    "INTL_CATEGORY": "専門職学位課程（外国人学生調査票用）"
-  }
+    "INTL_CATEGORY": "専門職学位課程（外国人学生調査票用）",
+  },
 ]
 ```
 
@@ -173,7 +173,7 @@ Portraits.getIntlIds(['0000', '1111']);
 ```jsonc
 [
   ["0000-1Z11", "0000-1Z33", "0000-1Z44", "0000-1Z55"], // 大学ID「0000」の外国人用組織ID一式
-  ["1111-1Z11", "1111-1Z33", "1111-1Z44", "1111-1Z55"] // 大学ID「1111」の外国人用組織ID一式
+  ["1111-1Z11", "1111-1Z33", "1111-1Z44", "1111-1Z55"], // 大学ID「1111」の外国人用組織ID一式
 ]
 ```
 
@@ -190,14 +190,14 @@ Portraits.getAllIds();
 ```jsonc
 {
   "univIds": [
-    { "UNIV_ID": "0000", "UNIV_NAME": "○○大学" }
+    { "UNIV_ID": "0000", "UNIV_NAME": "○○大学" },
     // ...
   ],
   "intlIdSuffixes": [
     {
       "INTL_ID_SUFFIX": "-1Z11",
-      "INTL_CATEGORY": "大学学部、短期大学本科（外国人学生調査票用）"
-    }
+      "INTL_CATEGORY": "大学学部、短期大学本科（外国人学生調査票用）",
+    },
     // ...
   ],
   "organizationIds": {
@@ -208,21 +208,21 @@ Portraits.getAllIds();
           "DEP": "○○学部", // 学部・研究科名
           "LOC": "○○", // 所在地
           "CTG": "", // 分類
-          "DN": "昼間" // 昼間 or 夜間
+          "DN": "昼間", // 昼間 or 夜間
         },
         {
           "OID": "0100-01-01-1Y68-01-1",
           "DEP": "○○研究科",
           "LOC": "○○",
           "CTG": "修士課程",
-          "DN": "昼間"
-        }
+          "DN": "昼間",
+        },
         // ...
-      ]
+      ],
       // ...
-    }
+    },
     // ...
-  }
+  },
 }
 ```
 
@@ -236,18 +236,18 @@ Portraits.getAllIds();
     "RESULT": {
       "STATUS": "1", // 該当データがあった場合は"0"
       "ERROR_MSG": "正常に終了しましたが、該当データはありませんでした。", // 該当データがあった場合は"正常に終了しました。"
-      "DATE": "2022/09/04 14:40:20"
+      "DATE": "2022/09/04 14:40:20",
     },
     "PARAMETER": {
       "YEAR": "2019年度",
       "QUE_NAME": "学生教職員等状況票",
-      "ORG_ID": "0000"
+      "ORG_ID": "0000",
     },
     "DATALIST_INF": {
       "NUMBER": "0",
-      "DATA_INF": [{ "UPDATE_DATE": "", "CONTENT": null }]
-    }
-  }
+      "DATA_INF": [{ "UPDATE_DATE": "", "CONTENT": null }],
+    },
+  },
 }
 ```
 
