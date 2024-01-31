@@ -10,6 +10,7 @@ const {
   getAllOrganizationIds,
   getOrganizationIdsbyUniv,
   verifyUnivNamesIds_,
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
 } = require('../src/portraits');
 
 test('getAllIds', () => {
@@ -105,7 +106,7 @@ test('getUnivIds with invalid univ name', () => {
   expect(() => {
     getUnivIds([testUnivName]);
   }).toThrowError(
-    new RangeError(`[ERROR] ${testUnivName} の情報は登録されていません。`)
+    new RangeError(`[ERROR] ${testUnivName} の情報は登録されていません。`),
   );
 });
 
@@ -115,8 +116,8 @@ test('getOrganizationIdsbyUniv with invalid year', () => {
     getOrganizationIdsbyUniv(testYear, ['○○大学']);
   }).toThrowError(
     new RangeError(
-      `[ERROR] ${testYear}年度の学部・研究科等組織IDは取得できません。`
-    )
+      `[ERROR] ${testYear}年度の学部・研究科等組織IDは取得できません。`,
+    ),
   );
 });
 
@@ -125,14 +126,14 @@ test('getOrganizationIdsbyUniv with invalid univ name', () => {
   expect(() => {
     getOrganizationIdsbyUniv(2021, [testUnivName]);
   }).toThrowError(
-    new RangeError(`[ERROR] ${testUnivName}の情報は登録されていません。`)
+    new RangeError(`[ERROR] ${testUnivName}の情報は登録されていません。`),
   );
 });
 
 test('verifyUnivNamesIds_ with non-array arg', () => {
   const param = 'this is not an array';
   expect(() => verifyUnivNamesIds_(param)).toThrowError(
-    new TypeError(`[ERROR] 引数として渡された ${param} が配列ではありません。`)
+    new TypeError(`[ERROR] 引数として渡された ${param} が配列ではありません。`),
   );
 });
 
@@ -140,6 +141,6 @@ test('verifyUnivNamesIds_ with zero-length array', () => {
   expect(() => {
     verifyUnivNamesIds_([]);
   }).toThrowError(
-    new RangeError('[ERROR] 必ず1つ以上の大学を指定してください。')
+    new RangeError('[ERROR] 必ず1つ以上の大学を指定してください。'),
   );
 });

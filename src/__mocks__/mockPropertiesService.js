@@ -13,7 +13,9 @@ class MockPropertiesService {
  * @see https://developers.google.com/apps-script/reference/properties/properties?hl=en
  */
 class MockProperties {
-  constructor() {}
+  constructor() {
+    // empty constructor
+  }
   getProperties() {
     return {
       webAppUrl: 'https://test-url.com',
