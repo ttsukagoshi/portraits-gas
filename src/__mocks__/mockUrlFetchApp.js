@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { MockProperties } = require('./mockPropertiesService');
 
 /**
@@ -30,7 +31,7 @@ class MockHTTPResponse {
     this.url = url;
     this.params = params;
     this.isGetIds = url.startsWith(
-      new MockProperties().getProperties().webAppUrl
+      new MockProperties().getProperties().webAppUrl,
     );
   }
   getContentText() {

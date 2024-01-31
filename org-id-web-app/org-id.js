@@ -78,7 +78,7 @@ function doGet(event) {
     returnJson['error'] = error.message;
   }
   return ContentService.createTextOutput(
-    JSON.stringify(returnJson)
+    JSON.stringify(returnJson),
   ).setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -118,14 +118,14 @@ function createJsonCache(mode) {
           univIdsHeader.reduce((o, k, i) => {
             o[k] = row[i];
             return o;
-          }, {})
+          }, {}),
         );
         const univIdsStr = JSON.stringify(univIds);
         console.info(`大学IDのリスト生成完了:\n${univIdsStr}}`); // log
         CacheService.getDocumentCache().put(
           modeType,
           univIdsStr,
-          CACHE_EXPIRATION_IN_SECONDS
+          CACHE_EXPIRATION_IN_SECONDS,
         );
         obj['univIds'] = univIds;
       } else if (modeType === 'intlIdSuffixes') {
@@ -136,16 +136,16 @@ function createJsonCache(mode) {
           intlIdSuffixesHeader.reduce((o, k, i) => {
             o[k] = row[i];
             return o;
-          }, {})
+          }, {}),
         );
         const intlIdSuffixesStr = JSON.stringify(intlIdSuffixes);
         console.info(
-          `外国人用組織ID suffixのリスト生成完了:\n${intlIdSuffixesStr}}`
+          `外国人用組織ID suffixのリスト生成完了:\n${intlIdSuffixesStr}}`,
         ); // log
         CacheService.getDocumentCache().put(
           modeType,
           intlIdSuffixesStr,
-          CACHE_EXPIRATION_IN_SECONDS
+          CACHE_EXPIRATION_IN_SECONDS,
         );
         obj['intlIdSuffixes'] = intlIdSuffixes;
       } else if (modeType === 'organizationIds') {
@@ -156,7 +156,7 @@ function createJsonCache(mode) {
           organizationIdsTableHeader.reduce((o, k, i) => {
             o[k] = row[i];
             return o;
-          }, {})
+          }, {}),
         );
         const organizationIds = organizationIdsTable.reduce(
           (oidObj, tableRow) => {
@@ -175,11 +175,11 @@ function createJsonCache(mode) {
             });
             return oidObj;
           },
-          {}
+          {},
         );
         const organizationIdsStr = JSON.stringify(organizationIds);
         console.info(
-          `学部・研究科等組織IDのリスト生成完了:\n${organizationIdsStr}}`
+          `学部・研究科等組織IDのリスト生成完了:\n${organizationIdsStr}}`,
         ); // log
         /*CacheService.getDocumentCache().put(
           modeType,

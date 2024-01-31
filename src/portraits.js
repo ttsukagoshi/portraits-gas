@@ -17,12 +17,14 @@ const API_VERSION = 'v1';
 
 // Jest用
 if (!UrlFetchApp) {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { MockUrlFetchApp } = require('./__mocks__/mockUrlFetchApp');
   var UrlFetchApp = MockUrlFetchApp;
 }
 if (!PropertiesService) {
   const {
     MockPropertiesService,
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
   } = require('./__mocks__/mockPropertiesService');
   var PropertiesService = MockPropertiesService;
 }
@@ -37,7 +39,7 @@ if (!PropertiesService) {
  */
 function getStudentFacultyStatus(accessKey, year, univId) {
   const params = `accesskey=${verifyAccessKey_(
-    accessKey
+    accessKey,
   )}&year=${year}&orgid=${univId}`;
   const url =
     API_BASE_URL +
@@ -56,7 +58,7 @@ function getStudentFacultyStatus(accessKey, year, univId) {
  */
 function getCollegeUndergraduateStudentsDetail(accessKey, year, orgId) {
   const params = `accesskey=${verifyAccessKey_(
-    accessKey
+    accessKey,
   )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
@@ -75,7 +77,7 @@ function getCollegeUndergraduateStudentsDetail(accessKey, year, orgId) {
  */
 function getGraduateStudentsDetail(accessKey, year, orgId) {
   const params = `accesskey=${verifyAccessKey_(
-    accessKey
+    accessKey,
   )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
@@ -94,7 +96,7 @@ function getGraduateStudentsDetail(accessKey, year, orgId) {
  */
 function getJuniorCollegeUndergraduateStudentsDetail(accessKey, year, univId) {
   const params = `accesskey=${verifyAccessKey_(
-    accessKey
+    accessKey,
   )}&year=${year}&orgid=${univId}`;
   const url =
     API_BASE_URL +
@@ -113,7 +115,7 @@ function getJuniorCollegeUndergraduateStudentsDetail(accessKey, year, univId) {
  */
 function getForeignStudent(accessKey, year, foreignId) {
   const params = `accesskey=${verifyAccessKey_(
-    accessKey
+    accessKey,
   )}&year=${year}&orgid=${foreignId}`;
   const url =
     API_BASE_URL +
@@ -132,7 +134,7 @@ function getForeignStudent(accessKey, year, foreignId) {
  */
 function getStatusAfterGraduationGraduates(accessKey, year, orgId) {
   const params = `accesskey=${verifyAccessKey_(
-    accessKey
+    accessKey,
   )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
@@ -151,7 +153,7 @@ function getStatusAfterGraduationGraduates(accessKey, year, orgId) {
  */
 function getStatusAfterGraduationJobs(accessKey, year, orgId) {
   const params = `accesskey=${verifyAccessKey_(
-    accessKey
+    accessKey,
   )}&year=${year}&orgid=${orgId}`;
   const url =
     API_BASE_URL +
@@ -170,7 +172,7 @@ function getStatusAfterGraduationJobs(accessKey, year, orgId) {
  */
 function getSchoolFacilities(accessKey, year, univId) {
   const params = `accesskey=${verifyAccessKey_(
-    accessKey
+    accessKey,
   )}&year=${year}&orgid=${univId}`;
   const url =
     API_BASE_URL +
@@ -210,7 +212,7 @@ function getUnivIds(targetUnivNames) {
   verifyUnivNamesIds_(targetUnivNames).forEach((targetUnivName) => {
     if (!univNameList.includes(targetUnivName)) {
       throw new RangeError(
-        `[ERROR] ${targetUnivName} の情報は登録されていません。`
+        `[ERROR] ${targetUnivName} の情報は登録されていません。`,
       );
     }
   });
@@ -235,8 +237,8 @@ function getAllIntlIdSuffixes() {
 function getIntlIds(targetUnivIds) {
   return verifyUnivNamesIds_(targetUnivIds).map((targetUnivId) =>
     getAllIntlIdSuffixes().map(
-      (intlIdSuffix) => targetUnivId + intlIdSuffix.INTL_ID_SUFFIX
-    )
+      (intlIdSuffix) => targetUnivId + intlIdSuffix.INTL_ID_SUFFIX,
+    ),
   );
 }
 
@@ -258,14 +260,14 @@ function getOrganizationIdsbyUniv(targetYear, targetUnivNames) {
   const allOrgIds = getAllOrganizationIds();
   if (!allOrgIds[targetYear]) {
     throw new RangeError(
-      `[ERROR] ${targetYear}年度の学部・研究科等組織IDは取得できません。`
+      `[ERROR] ${targetYear}年度の学部・研究科等組織IDは取得できません。`,
     );
   }
   let orgIdsObj = {};
   verifyUnivNamesIds_(targetUnivNames).forEach((targetUnivName) => {
     if (!allOrgIds[targetYear][targetUnivName]) {
       throw new RangeError(
-        `[ERROR] ${targetUnivName}の情報は登録されていません。`
+        `[ERROR] ${targetUnivName}の情報は登録されていません。`,
       );
     }
     orgIdsObj[targetUnivName] = allOrgIds[targetYear][targetUnivName];
@@ -287,7 +289,7 @@ function getIds_(mode) {
   const response = JSON.parse(
     UrlFetchApp.fetch(url, {
       method: 'get',
-    }).getContentText()
+    }).getContentText(),
   );
   return mode ? response[mode] : response;
 }
@@ -301,7 +303,7 @@ function getIds_(mode) {
 function verifyUnivNamesIds_(univNamesIds) {
   if (!Array.isArray(univNamesIds)) {
     throw new TypeError(
-      `[ERROR] 引数として渡された ${univNamesIds} が配列ではありません。`
+      `[ERROR] 引数として渡された ${univNamesIds} が配列ではありません。`,
     );
   } else if (univNamesIds.length < 1) {
     throw new RangeError('[ERROR] 必ず1つ以上の大学を指定してください。');
@@ -318,14 +320,14 @@ function verifyUnivNamesIds_(univNamesIds) {
 function verifyAccessKey_(accessKey) {
   if (!accessKey) {
     throw new Error(
-      '[ERROR] アクセスキーが空白のままAPIを呼び出そうとしています。必ずポートレートAPIのアクセスキーを設定した上で、実行してください。'
+      '[ERROR] アクセスキーが空白のままAPIを呼び出そうとしています。必ずポートレートAPIのアクセスキーを設定した上で、実行してください。',
     );
   }
   if (accessKey.match(/^[^:/@]+?$/)) {
     return accessKey;
   } else {
     throw new RangeError(
-      '[ERROR] 引数として渡されたアクセスキーが所定の形式でないようです。入力値をご確認ください。'
+      '[ERROR] 引数として渡されたアクセスキーが所定の形式でないようです。入力値をご確認ください。',
     );
   }
 }
