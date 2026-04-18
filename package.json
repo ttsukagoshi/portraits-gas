@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/ttsukagoshi/portraits-gas#readme",
   "devDependencies": {
-    "@google/clasp": "^3.2.0",
+    "@google/clasp": "^3.3.0",
     "@types/google-apps-script": "^1.0.83",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
